@@ -1,11 +1,11 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 
-export default function Landingpage() {
+export default function Sellers() {
   return (
-    <>
+    <div>
       <NavBar />
-      <h1>Landingpage</h1>
-    </>
+      <h1>Sellers</h1>
+    </div>
   );
 }
