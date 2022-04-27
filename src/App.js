@@ -7,8 +7,8 @@ import Sellers from "./pages/Sellers";
 function App() {
   return (
     <Router className="App">
-      <Landingpage path="/" />
-      <Products path="/products" />
+      <Landingpage exact path="/" />
+      <Products exact path="/products" />
       <Sellers path="/sellers" />
     </Router>
   );
