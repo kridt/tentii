@@ -1,21 +1,40 @@
 import { Link } from "@reach/router";
 import React from "react";
+import "./SideNav.scss";
 
 export default function SideNav() {
+
+  const NavLink = props => (
+    <Link
+      {...props}
+      getProps={({ isCurrent }) => {
+        // the object returned here is passed to the
+        // anchor element's props
+        return {
+          style: {
+            color: isCurrent ? "#FF9900" : "black",
+            textDecoration: isCurrent ? "underline" : "none",
+            fontWeight: isCurrent ? "normal" : "light"
+          }
+        };
+      }}
+    />
+  );
+
   return (
-    <nav>
+    <nav id="sideNav">
       <ul>
         <li>
-          <Link to="/products">Produkter</Link>
+          <NavLink to="/">Produkter</NavLink>
         </li>
         <li>
-          <Link to="/sellers">Sælgere</Link>
+          <NavLink to="/sellers">Sælgere</NavLink>
         </li>
         <li>
-          <Link to="/">Opdag</Link>
+          <NavLink to="/discover">Opdag</NavLink>
         </li>
         <li>
-          <Link to="/">Om os</Link>
+          <NavLink to="/about">Om os</NavLink>
         </li>
       </ul>
     </nav>

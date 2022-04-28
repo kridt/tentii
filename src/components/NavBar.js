@@ -25,7 +25,6 @@ export default function NavBar() {
           </li>
         </ul>
       </nav>
-      <SideNav />
     </>
   );
 }

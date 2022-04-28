@@ -1,0 +1,31 @@
+.goldenDesigns {
+  background-color: rgba(255, 153, 0, 0.75);
+  color: #ffffff;
+
+  .headOfGoldenDesigns {
+    padding-left: 27px;
+    height: 381px;
+    img {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    p {
+      line-height: 0;
+    }
+  }
+  .goldenDesignsProductSelection {
+    &__selection {
+      padding-left: 27px;
+      padding-top: 1.2em;
+      display: flex;
+      overflow-x: scroll;
+    }
+    .artistOfTheDay {
+      padding-left: 27px;
+      h2 {
+        line-height: 0;
+      }
+    }
+    background-color: rgba(255, 153, 0, 1);
+  }
+}
