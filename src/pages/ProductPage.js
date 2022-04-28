@@ -54,7 +54,9 @@ export default function ProductPage({ id }) {
     },
   ];
 
-  const currentProduct = testProducts.find((product) => product.id == id);
+  const currentProduct = testProducts.find(
+    (product) => product.id === parseInt(id)
+  );
   console.log(currentProduct);
 
   return (
