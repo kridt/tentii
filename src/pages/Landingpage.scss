@@ -29,3 +29,44 @@
     background-color: rgba(255, 153, 0, 1);
   }
 }
+
+.spring {
+  background: rgba(142, 147, 109, 0.75);
+  .goldenDesignsProductSelection {
+    background: rgba(142, 147, 109, 1);
+  }
+}
+.pearls {
+  background: rgba(41, 59, 102, 0.75);
+  .goldenDesignsProductSelection {
+    background: rgba(41, 59, 102, 1);
+  }
+}
+
+.joinTentii {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  &__text {
+    grid-area: 1/1/1/1;
+    z-index: 1;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5em;
+    margin-top: 0.5em;
+    p {
+      color: #ffffff;
+      max-width: 340px;
+      margin-bottom: 3em;
+    }
+    a {
+      color: #000;
+      text-decoration: none;
+      background-color: #ffffff;
+      padding: 0.5em 1em;
+    }
+  }
+  img {
+    grid-area: 1/1/1/1;
+  }
+}

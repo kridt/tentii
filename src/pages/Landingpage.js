@@ -1,3 +1,4 @@
+import { Link } from "@reach/router";
 import React from "react";
 import NavBar from "../components/NavBar";
 import ProductCard from "../components/ProductCard";
@@ -89,6 +90,71 @@ export default function Landingpage() {
             <h3>@Aluna</h3>
           </div>
         </div>
+      </div>
+
+      <div className="goldenDesigns spring">
+        <div className="headOfGoldenDesigns">
+          <h1>Forårsdesigns</h1>
+          <p>Gå en lysere tid i møde</p>
+
+          <img alt="placeholder" src="https://via.placeholder.com/363x302" />
+        </div>
+        <div className="goldenDesignsProductSelection">
+          <div className="goldenDesignsProductSelection__selection">
+            {testProducts.map((product) => {
+              return (
+                <ProductCard
+                  img={product.img}
+                  id={product.id}
+                  productName={product.productName}
+                  price={product.price}
+                  artistName={product.artistName}
+                />
+              );
+            })}
+          </div>
+
+          <div className="artistOfTheDay">
+            <h2>Ringe til hende</h2>
+            <h3>Unikke håndlavet designs</h3>
+          </div>
+        </div>
+      </div>
+      <div className="goldenDesigns pearls">
+        <div className="headOfGoldenDesigns">
+          <h1>Forårsdesigns</h1>
+          <p>Gå en lysere tid i møde</p>
+
+          <img alt="placeholder" src="https://via.placeholder.com/363x302" />
+        </div>
+        <div className="goldenDesignsProductSelection">
+          <div className="goldenDesignsProductSelection__selection">
+            {testProducts.map((product) => {
+              return (
+                <ProductCard
+                  img={product.img}
+                  id={product.id}
+                  productName={product.productName}
+                  price={product.price}
+                  artistName={product.artistName}
+                />
+              );
+            })}
+          </div>
+
+          <div className="artistOfTheDay">
+            <h2>Rav og perler</h2>
+            <h3>udforsk havets skønheder</h3>
+          </div>
+        </div>
+      </div>
+
+      <div className="joinTentii">
+        <div className="joinTentii__text">
+          <p>Er du klar til at starte din rejse?</p>
+          <Link to="/">Bliv en del af Tentii</Link>
+        </div>
+        <img alt="placeholder" src="https://via.placeholder.com/390x322" />
       </div>
     </>
   );
