@@ -1,13 +1,33 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
+import SellerCard from "../components/SellerCard";
 import SideNav from "../components/SideNav";
+import "./Sellers.scss";
 
 export default function Sellers() {
+  const [sellers, setSellers] = useState([]);
+
+  useEffect(() => {
+    axios.get("/sellers.json").then((response) => setSellers(response.data));
+  }, [setSellers]);
+
+  console.log(sellers);
+
   return (
-    <div>
-      <NavBar />
-      <SideNav />
-      <h1>Sellers</h1>
-    </div>
+    <>
+      <NavBar sideNav={true} />
+      <div className="sellers_topImg">
+        <img alt="topImg" src="https://via.placeholder.com/390x290" />
+      </div>
+
+      <div className="sellersList">
+        {sellers.map((seller) => {
+          return (
+            <SellerCard key={seller.sellerId} sellerId={seller.sellerId} />
+          );
+        })}
+      </div>
+    </>
   );
 }

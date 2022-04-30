@@ -1,8 +1,9 @@
 import { Link } from "@reach/router";
 import React from "react";
 import "./NavBar.scss";
+import SideNav from "./SideNav";
 
-export default function NavBar() {
+export default function NavBar({ sideNav }) {
   return (
     <>
       <nav id="navbar">
@@ -24,6 +25,8 @@ export default function NavBar() {
           </li>
         </ul>
       </nav>
+
+      {sideNav ? <SideNav trueFalse={true} /> : null}
     </>
   );
 }

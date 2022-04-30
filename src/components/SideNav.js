@@ -2,9 +2,8 @@ import { Link } from "@reach/router";
 import React from "react";
 import "./SideNav.scss";
 
-export default function SideNav() {
-
-  const NavLink = props => (
+export default function SideNav({ sticky }) {
+  const NavLink = (props) => (
     <Link
       {...props}
       getProps={({ isCurrent }) => {
@@ -14,15 +13,20 @@ export default function SideNav() {
           style: {
             color: isCurrent ? "#FF9900" : "black",
             textDecoration: isCurrent ? "underline" : "none",
-            fontWeight: isCurrent ? "normal" : "light"
-          }
+            fontWeight: isCurrent ? "normal" : "light",
+          },
         };
       }}
     />
   );
 
   return (
-    <nav id="sideNav">
+    <nav
+      style={{
+        position: sticky ? "sticky" : null,
+      }}
+      id="sideNav"
+    >
       <ul>
         <li>
           <NavLink to="/">Produkter</NavLink>

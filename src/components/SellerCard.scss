@@ -1,0 +1,53 @@
+.profileCard {
+  border-radius: 20px;
+}
+
+.profileInfo {
+  display: flex;
+  justify-content: space-between;
+  margin: 1em 0;
+  padding: 1.2em;
+  font-weight: 600;
+
+  button {
+    width: 100%;
+    max-width: 110px;
+    float: right;
+    color: white;
+    padding: 7px 25px;
+    background-color: transparent;
+    border: 3px solid #ffffff;
+    box-sizing: border-box;
+    border-radius: 20px;
+  }
+  .profileStats {
+    width: 100%;
+    margin-top: 2.5em;
+    display: flex;
+    border-bottom: #ffffff solid 3px;
+    justify-content: space-between;
+    text-align: center;
+    color: white;
+    padding: 0.2em;
+    p {
+      font-size: 1.1em;
+    }
+  }
+  &__leftImg {
+    a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 2.2em;
+    }
+    img {
+      border-radius: 50px;
+    }
+  }
+}
+.productCollection {
+  display: flex;
+  max-width: 390px;
+  overflow-x: scroll;
+  padding-left: 1em;
+}
