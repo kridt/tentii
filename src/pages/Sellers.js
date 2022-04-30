@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import SellerCard from "../components/SellerCard";
-import SideNav from "../components/SideNav";
 import "./Sellers.scss";
 
 export default function Sellers() {

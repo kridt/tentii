@@ -15,7 +15,7 @@ export default function SellerCard({ sellerId }) {
       .then((data) => {
         setSeller(data.find((seller) => seller.sellerId === sellerId));
       });
-  }, [setSeller]);
+  }, [setSeller, sellerId]);
 
   console.log(seller);
 
