@@ -7,7 +7,7 @@ export default function ProductPage({ id }) {
 
   useEffect(() => {
     axios
-      .get("/products.json")
+      .get("/allProducts.json")
       .then((response) =>
         setProduct(
           response.data.find((product) => product.productId === parseInt(id))
