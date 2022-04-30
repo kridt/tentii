@@ -11,8 +11,6 @@ export default function Sellers() {
     axios.get("/sellers.json").then((response) => setSellers(response.data));
   }, [setSellers]);
 
-  console.log(sellers);
-
   return (
     <>
       <NavBar sideNav={true} />

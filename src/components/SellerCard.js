@@ -17,8 +17,6 @@ export default function SellerCard({ sellerId }) {
       });
   }, [setSeller, sellerId]);
 
-  console.log(seller);
-
   return (
     <div
       className="profileCard"
@@ -29,7 +27,9 @@ export default function SellerCard({ sellerId }) {
       <div className="profileInfo">
         <div className="profileInfo__leftImg">
           <img src="https://via.placeholder.com/130" alt="placeholder" />
-          <Link to="/">@{seller?.displayName}</Link>
+          <Link to={"/sellerSite/" + seller?.sellerId}>
+            @{seller?.displayName}
+          </Link>
         </div>
         <div>
           <button>Følg</button>

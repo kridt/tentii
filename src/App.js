@@ -5,6 +5,7 @@ import Sellers from "./pages/Sellers";
 import Discover from "./pages/Discover";
 import About from "./pages/About";
 import ProductPage from "./pages/ProductPage";
+import SellerSIte from "./pages/SellerSIte";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Discover path="/discover" />
       <About path="/about" />
       <ProductPage path="/product/:id" />
+      <SellerSIte path="/sellerSite/:id" />
     </Router>
   );
 }
