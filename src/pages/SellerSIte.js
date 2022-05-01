@@ -26,7 +26,7 @@ export default function SellerSIte({ id }) {
     if(str.length > 1){
       str = "Flere Størelser";
     } else{
-      str = "Str." + " " + str[0];
+      str = "Str. " + str[0];
     }
 
     return (

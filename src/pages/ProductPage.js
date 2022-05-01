@@ -13,7 +13,7 @@ export default function ProductPage({ id }) {
           response.data.find((product) => product.productId === parseInt(id))
         )
       );
-  }, []);
+  }, [id]);
 
   console.log(product);
 
