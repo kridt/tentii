@@ -13,7 +13,7 @@
         "productId": 234567,
         "price": 100,
         "seller": 123456,
-        "sizes": ["S", "M", "L", "XL"],
+        "sizes": ["S"],
         "tagLine": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut augue ultricies, lacinia quam sed, gravida ex. Morbi vel nisi vel augue pulvinar feugiat eget id ipsum. Vestibulum ut consectetur lorem. Ut nec bibendum ipsum, sit amet semper augue. Aenean sed molestie ligula, ac facilisis augue. Quisque ornare ipsum in tortor elementum, rutrum dapibus est blandit. In gravida, tellus quis gravida varius, diam ligula congue ante, ut tempor tellus velit ac magna. Proin quis augue eleifend, euismod lacus id, commodo est. Quisque id quam eu lorem gravida eleifend eget ut massa. Quisque consequat ante in nulla bibendum pulvinar. Proin aliquam.",
         "colors": ["red", "blue", "green"],
         "materials": ["cotton", "polyester", "silk"],

@@ -21,6 +21,14 @@ export default function SellerSIte({ id }) {
   console.log(seller);
 
   function Product({ productId, title, price, img, str }) {
+
+
+    if(str.length > 1){
+      str = "Flere Størelser";
+    } else{
+      str = "Str." + " " + str[0];
+    }
+
     return (
       <Link to={"/product/" + productId}>
         <div>
@@ -29,10 +37,7 @@ export default function SellerSIte({ id }) {
         <p>{title}</p>
         <p>DKK {price}</p>
         <p>
-          Str
-          {str.map((size) => {
-            return <span className="sizes">. {size}</span>;
-          })}
+          {str}
         </p>
       </Link>
     );
