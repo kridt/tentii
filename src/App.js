@@ -6,6 +6,8 @@ import Discover from "./pages/Discover";
 import About from "./pages/About";
 import ProductPage from "./pages/ProductPage";
 import SellerSIte from "./pages/SellerSIte";
+import Signup from "./pages/Signup";
+import SignUpSeller from "./pages/SignUpSeller";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
       <About path="/about" />
       <ProductPage path="/product/:id" />
       <SellerSIte path="/sellerSite/:id" />
+      <Signup path="/signup" />
+      <SignUpSeller  path="/signUpSeller" />
     </Router>
   );
 }

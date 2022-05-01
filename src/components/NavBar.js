@@ -21,7 +21,7 @@ export default function NavBar({ sideNav }) {
             <Link to="/">kurv</Link>
           </li>
           <li>
-            <Link to="/">Profil</Link>
+            <Link to="/signup">Profil</Link>
           </li>
         </ul>
       </nav>

@@ -15,7 +15,6 @@ export default function ProductPage({ id }) {
       );
   }, [id]);
 
-  console.log(product);
 
   return (
     <>
