@@ -10,7 +10,7 @@ export default function Discover() {
       randomIndex;
 
     // While there remain elements to shuffle.
-    while (currentIndex != 0) {
+    while (currentIndex !== 0) {
       // Pick a remaining element.
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
@@ -25,28 +25,26 @@ export default function Discover() {
     return array;
   }
   const imgs = [
-    `https://unsplash.it/170/170?image=1`,
+    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
+    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
+    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
+    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
+    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
+    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
+    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
+    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
+    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
     "https://unsplash.it/600/400?image=2",
-    "https://unsplash.it/170/170?image=3",
+    "https://unsplash.it/600/400?image=2",
+    "https://unsplash.it/600/400?image=2",
+    "https://unsplash.it/600/400?image=2",
+    "https://unsplash.it/600/400?image=2",
     "https://unsplash.it/600/400?image=4",
-    "https://unsplash.it/170/170?image=5",
-    "https://unsplash.it/600/400?image=6",
-    "https://unsplash.it/170/170?image=7",
-    "https://unsplash.it/600/400?image=8",
-    "https://unsplash.it/170/170?image=9",
-    "https://unsplash.it/600/400?image=10",
-    "https://unsplash.it/170/170?image=11",
-    "https://unsplash.it/600/400?image=12",
-    "https://unsplash.it/170/170?image=13",
-    "https://unsplash.it/600/400?image=14",
-    "https://unsplash.it/170/170?image=15",
-    "https://unsplash.it/600/400?image=16",
-    "https://unsplash.it/170/170?image=17",
-    "https://unsplash.it/600/400?image=18",
+    "https://unsplash.it/600/400?image=4",
+    "https://unsplash.it/600/400?image=4",
+    "https://unsplash.it/600/400?image=4",
   ];
   const realImg = shuffle(imgs);
-
-  console.log(realImg);
 
   return (
     <div>
@@ -55,11 +53,32 @@ export default function Discover() {
       <h1>Opdag</h1>
       <div className="photoGallery">
         <ImageList variant="masonry" cols={1} gap={16}>
-          {imgs.map((item) => (
-            <ImageListItem key={item}>
-              <img src={item} />
-            </ImageListItem>
-          ))}
+          {realImg.map((item) => {
+            console.log(item.length);
+
+            if (item.length === 2) {
+              return (
+                <ImageListItem key={item}>
+                  <img
+                    className="smallImg first"
+                    src={item[0]}
+                    alt="placeholder"
+                  />
+                  <img
+                    className="smallImg secound"
+                    src={item[1]}
+                    alt="placeholder"
+                  />
+                </ImageListItem>
+              );
+            }
+
+            return (
+              <ImageListItem key={item}>
+                <img alt="placeholder" className="discoverImg" src={item} />
+              </ImageListItem>
+            );
+          })}
         </ImageList>
       </div>
     </div>
