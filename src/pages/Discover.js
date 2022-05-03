@@ -6,8 +6,11 @@ import "./Discover.scss";
 import ShuffleThatShi from "../functions/ShufflesThatShi";
 
 export default function Discover() {
+  const img1 = [
+    `https://unsplash.it/170?image=1`,
+    `https://unsplash.it/170?image=2`,
+  ];
   const imgs = [
-    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
     [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
     [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
     [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
@@ -26,7 +29,8 @@ export default function Discover() {
     "https://unsplash.it/600/400?image=4",
     "https://unsplash.it/600/400?image=4",
   ];
-  const realImg = ShuffleThatShi(imgs);
+  let realImg = ShuffleThatShi(imgs);
+  realImg = [img1].concat(realImg);
 
   return (
     <div>
