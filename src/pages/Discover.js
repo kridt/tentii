@@ -3,27 +3,9 @@ import NavBar from "../components/NavBar";
 import SideNav from "../components/SideNav";
 import { ImageList, ImageListItem } from "@mui/material";
 import "./Discover.scss";
+import ShuffleThatShi from "../functions/ShufflesThatShi";
 
 export default function Discover() {
-  function shuffle(array) {
-    let currentIndex = array.length,
-      randomIndex;
-
-    // While there remain elements to shuffle.
-    while (currentIndex !== 0) {
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
-      ];
-    }
-
-    return array;
-  }
   const imgs = [
     [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
     [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
@@ -44,7 +26,7 @@ export default function Discover() {
     "https://unsplash.it/600/400?image=4",
     "https://unsplash.it/600/400?image=4",
   ];
-  const realImg = shuffle(imgs);
+  const realImg = ShuffleThatShi(imgs);
 
   return (
     <div>
