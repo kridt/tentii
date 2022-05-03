@@ -36,8 +36,6 @@ export default function Discover() {
       <div className="photoGallery">
         <ImageList variant="masonry" cols={1} gap={16}>
           {realImg.map((item) => {
-            console.log(item.length);
-
             if (item.length === 2) {
               return (
                 <ImageListItem key={item}>
@@ -57,7 +55,12 @@ export default function Discover() {
 
             return (
               <ImageListItem key={item}>
-                <img alt="placeholder" className="discoverImg" src={item} />
+                <img
+                  alt="placeholder"
+                  className="discoverImg"
+                  loading="lazy"
+                  src={item}
+                />
               </ImageListItem>
             );
           })}
