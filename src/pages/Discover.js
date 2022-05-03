@@ -2,6 +2,7 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import SideNav from "../components/SideNav";
 import { ImageList, ImageListItem } from "@mui/material";
+import "./Discover.scss";
 
 export default function Discover() {
   function shuffle(array) {
@@ -52,13 +53,15 @@ export default function Discover() {
       <NavBar />
       <SideNav />
       <h1>Opdag</h1>
-      <ImageList variant="masonry" cols={3} gap={8}>
-        {imgs.map((item) => (
-          <ImageListItem key={item}>
-            <img src={item} />
-          </ImageListItem>
-        ))}
-      </ImageList>
+      <div className="photoGallery">
+        <ImageList variant="masonry" cols={1} gap={16}>
+          {imgs.map((item) => (
+            <ImageListItem key={item}>
+              <img src={item} />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </div>
     </div>
   );
 }

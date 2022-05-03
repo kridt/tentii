@@ -1,0 +1,13 @@
+.photoGallery {
+  text-align: center;
+
+  ul {
+    margin-right: 1em;
+    li {
+      margin-left: 1em;
+      img {
+        border-radius: 20px;
+      }
+    }
+  }
+}
