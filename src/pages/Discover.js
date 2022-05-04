@@ -11,14 +11,14 @@ export default function Discover() {
     `https://unsplash.it/170?image=2`,
   ];
   const imgs = [
-    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
-    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
-    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
-    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
-    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
-    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
-    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
-    [`https://unsplash.it/170?image=1`, `https://unsplash.it/170?image=2`],
+    `https://unsplash.it/170?image=1`,
+    `https://unsplash.it/170?image=1`,
+    `https://unsplash.it/170?image=1`,
+    `https://unsplash.it/170?image=1`,
+    `https://unsplash.it/170?image=1`,
+    `https://unsplash.it/170?image=1`,
+    `https://unsplash.it/170?image=1`,
+    `https://unsplash.it/170?image=1`,
     "https://unsplash.it/600/400?image=2",
     "https://unsplash.it/600/400?image=2",
     "https://unsplash.it/600/400?image=2",
@@ -30,7 +30,6 @@ export default function Discover() {
     "https://unsplash.it/600/400?image=4",
   ];
   let realImg = ShuffleThatShi(imgs);
-  realImg = [img1].concat(realImg);
 
   return (
     <div>
@@ -38,9 +37,9 @@ export default function Discover() {
       <SideNav />
       <h1>Opdag</h1>
       <div className="photoGallery">
-        <ImageList variant="masonry" cols={1} gap={16}>
+        <ImageList variant="masonry" cols={3} gap={8}>
           {realImg.map((item) => {
-            if (item.length === 2) {
+            /* if (item.length === 2) {
               return (
                 <ImageListItem key={item}>
                   <img
@@ -55,7 +54,7 @@ export default function Discover() {
                   />
                 </ImageListItem>
               );
-            }
+            } */
 
             return (
               <ImageListItem key={item}>
