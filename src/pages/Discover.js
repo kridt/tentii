@@ -3,7 +3,6 @@ import NavBar from "../components/NavBar";
 import SideNav from "../components/SideNav";
 import { ImageList, ImageListItem } from "@mui/material";
 import "./Discover.scss";
-import ShuffleThatShi from "../functions/ShufflesThatShi";
 
 export default function Discover() {
   const [images, setImages] = React.useState([]);

@@ -7,7 +7,9 @@ import About from "./pages/About";
 import ProductPage from "./pages/ProductPage";
 import SellerSIte from "./pages/SellerSIte";
 import Signup from "./pages/Signup";
-import SignUpSeller from "./pages/SignUpSeller";
+import SignUpSeller from "./pages/signUpSeller/SignUpSeller";
+import StepOne from "./pages/signUpSeller/StepOne";
+import StepTwo from "./pages/signUpSeller/StepTwo";
 
 function App() {
   return (
@@ -19,7 +21,10 @@ function App() {
       <ProductPage path="/product/:id" />
       <SellerSIte path="/sellerSite/:id" />
       <Signup path="/signup" />
-      <SignUpSeller  path="/signUpSeller" />
+      <SignUpSeller path="/signUpSeller">
+        <StepOne path="/stepOne" />
+        <StepTwo path="/stepTwo" />
+      </SignUpSeller>
     </Router>
   );
 }
