@@ -25,15 +25,43 @@
   }
 }
 
-.option {
+.brandOption {
   background-color: #fff;
+  display: flex;
   height: 35px;
-  border-radius: 10px;
+
   p {
     color: #000;
     font-size: 0.8em;
   }
 }
-.active {
-  border: 1px solid red;
+
+.test {
+  div {
+    border-radius: 10px;
+    margin-top: 1em;
+    height: 35px;
+    width: 100%;
+    background-color: #fff;
+    border: 2px solid #fff;
+    label {
+      font-size: 0.9em;
+    }
+    input {
+      position: fixed;
+      opacity: 0;
+    }
+  }
+}
+
+input[type="radio"]:checked + label {
+  display: block;
+  height: 33px;
+  border-radius: 10px;
+  padding: 0.1em;
+  position: relative;
+  bottom: 0.1em;
+  width: 100%;
+  right: 3px;
+  border: 2px solid orange;
 }
