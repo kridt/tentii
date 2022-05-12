@@ -28,9 +28,9 @@ function App() {
         <SellerSIte path="/sellerSite/:id" />
         <Signup path="/signup" />
         <SignUpSeller path="/signUpSeller" />
-        <StepOne path="/signUpSeller/stepOne" />
+        {/* <StepOne path="/signUpSeller/stepOne" />
         <StepTwo path="/signUpSeller/stepTwo" />
-        <StepThree path="/signUpSeller/stepThree" />
+        <StepThree path="/signUpSeller/stepThree" /> */}
       </Router>
     </SignUpSellerContext.Provider>
   );

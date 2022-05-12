@@ -8,9 +8,9 @@ import StepTwo from "./StepTwo";
 export default function SignUpSeller() {
   return (
     <div className="signUpSeller">
+      <h1>Sign Up Seller</h1>
       <Router>
         <StepOne path="/stepOne" />
-
         <StepTwo path="/stepTwo" />
         <StepThree path="/stepThree" />
       </Router>
