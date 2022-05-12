@@ -33,43 +33,8 @@ export default function Discover() {
   realImg = [img1].concat(realImg);
 
   return (
-    <div>
-      <NavBar />
-      <SideNav />
-      <h1>Opdag</h1>
-      <div className="photoGallery">
-        <ImageList variant="masonry" cols={1} gap={16}>
-          {realImg.map((item) => {
-            if (item.length === 2) {
-              return (
-                <ImageListItem key={item}>
-                  <img
-                    className="smallImg first"
-                    src={item[0]}
-                    alt="placeholder"
-                  />
-                  <img
-                    className="smallImg secound"
-                    src={item[1]}
-                    alt="placeholder"
-                  />
-                </ImageListItem>
-              );
-            }
-
-            return (
-              <ImageListItem key={item}>
-                <img
-                  alt="placeholder"
-                  className="discoverImg"
-                  loading="lazy"
-                  src={item}
-                />
-              </ImageListItem>
-            );
-          })}
-        </ImageList>
-      </div>
-    </div>
+    <>
+      <h1>discover</h1>
+    </>
   );
 }
