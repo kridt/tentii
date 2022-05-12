@@ -1,0 +1,27 @@
+#city {
+  display: flex;
+  align-items: center;
+  color: #000;
+  background-color: white;
+  width: 85%;
+  border-radius: 10px;
+  height: 35px;
+  margin: 0 auto;
+}
+#phoneDiv {
+  max-width: 85%;
+  margin: 0 auto;
+  div {
+    input {
+      padding-left: 4em;
+    }
+  }
+  #phone {
+    color: #000;
+    background-color: white;
+    width: 8%;
+    position: absolute;
+    left: 2em;
+    bottom: 22.3em;
+  }
+}

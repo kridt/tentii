@@ -11,6 +11,9 @@ export default function MiniNav() {
         <li>
           <Link to="/signUpSeller/stepTwo">Step two</Link>
         </li>
+        <li>
+          <Link to="/signUpSeller/stepThree">Step three</Link>
+        </li>
       </ul>
     </nav>
   );

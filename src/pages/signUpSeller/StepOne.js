@@ -1,9 +1,22 @@
-import React from "react";
+import { navigate } from "@reach/router";
+import React, { useContext } from "react";
+import { SignUpSellerContext } from "../../contexts/SignUpSellerContext";
 import MiniNav from "./MiniNav";
 
 export default function StepOne() {
-  function test(e) {
-    console.log(e.target.value);
+  const { setSignUpSeller, signUpSeller } = useContext(SignUpSellerContext);
+
+  console.log(signUpSeller);
+
+  function stepOneSignUpSeller(e) {
+    e.preventDefault();
+
+    const brandName = e.target.brandName.value;
+    const timeUsage = e.target.brandOption.value;
+
+    setSignUpSeller({ ...signUpSeller, brandName, timeUsage });
+
+    navigate("/signUpSeller/stepTwo");
   }
 
   return (
@@ -17,11 +30,14 @@ export default function StepOne() {
         tenti - <span>list of lines</span>
       </p>
 
-      <form className="signUpSellerFormStepOne">
+      <form
+        onSubmit={(e) => stepOneSignUpSeller(e)}
+        className="signUpSellerFormStepOne"
+      >
         <input
           type="text"
           name="brandName"
-          placeholder="Hvad hedder dit brand"
+          placeholder={signUpSeller.brandName || "Hvad er dit brand?"}
         />
         <p>
           Vi ser ofte at vores designere tager instiration fra deres
@@ -30,9 +46,13 @@ export default function StepOne() {
 
         <p>Hvad beskriver dig bedst?</p>
 
-        <div className="test" onChange={(e) => test(e)}>
+        <div className="test">
           <div>
-            <input type={"radio"} value="fullTime" name="brandOption" />
+            <input
+              type={"radio"}
+              value="Jeg sælger fuldtid"
+              name="brandOption"
+            />
             <label>Jeg sælger fuldtid</label>
             <section className="borderColor"></section>
           </div>
@@ -40,7 +60,7 @@ export default function StepOne() {
           <div>
             <input
               type={"radio"}
-              value="partTime big dreams"
+              value="Jeg er sælger deltid, men har store drømme"
               name="brandOption"
             />
             <label>Jeg er sælger deltid, men har store drømme</label>
@@ -49,7 +69,7 @@ export default function StepOne() {
           <div>
             <input
               type={"radio"}
-              value="parTime like where i am"
+              value="Jeg sælger deltid og sådan kan jeg lide det"
               name="brandOption"
             />
             <label>Jeg sælger deltid og sådan kan jeg lide det</label>
@@ -58,12 +78,14 @@ export default function StepOne() {
           <div>
             <input
               type={"radio"}
-              value="partTime when order arrive"
+              value="Jeg sælger når der kommer ordre - intet fast"
               name="brandOption"
             />
             <label>Jeg sælger når der kommer ordre - intet fast</label>
           </div>
         </div>
+
+        <input type="submit" value="Næste" />
       </form>
 
       <MiniNav />
