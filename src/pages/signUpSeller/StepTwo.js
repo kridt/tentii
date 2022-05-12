@@ -1,3 +1,4 @@
+import { navigate } from "@reach/router";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -43,12 +44,52 @@ export default function StepTwo() {
       firstName: e.target.firstName?.value,
       lastName: e.target.lastName?.value,
       country: e.target.country?.value,
+      company: false,
     });
-    console.log(signUpSeller);
+
+    navigate("/signUpSeller/stepThree");
+  }
+
+  function cvrFirm(e) {
+    e.preventDefault();
+    const inputCvr = e.target.value;
+    console.log(inputCvr);
+
+    if (inputCvr.length === 8) {
+      fetch(`https://cvrapi.dk/api?country=dk&vat=${inputCvr}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.name !== undefined) {
+            if (
+              window.confirm(
+                "Vi har fundet det her firma på det CVR nummer" +
+                  " " +
+                  data.name +
+                  "\n" +
+                  "\n" +
+                  "Er det korrekt?"
+              )
+            ) {
+              console.log("ok pressed");
+              setSignUpSeller({
+                ...signUpSeller,
+                company: true,
+                companyInfo: data,
+              });
+              navigate("/signUpSeller/stepThree");
+            } else {
+              console.log("cancel pressed");
+            }
+          } else {
+            alert("CVR nummer findes ikke");
+          }
+        });
+    }
   }
 
   return (
-    <div>
+    <div className="stepTwo">
       <h1>Step Two</h1>
       <h2>Til det knap så kreative</h2>
 
@@ -68,13 +109,17 @@ export default function StepTwo() {
       </div>
 
       <div className="info">
-        <h2>Fortæl os lidt om dig selv</h2>
         {cvr ? (
           <>
-            <h1>true</h1>
+            <h2>Fortæl os lidt om dit firma</h2>
+            <form onChange={(e) => cvrFirm(e)}>
+              <label>Hvad er dit cvr nummer?</label>
+              <input type={"number"} />
+            </form>
           </>
         ) : (
           <>
+            <h2>Fortæl os lidt om dig selv</h2>
             <form onSubmit={(e) => stepTwoSignUpSellerPerson(e)}>
               <div>
                 <label>Fornavn</label>

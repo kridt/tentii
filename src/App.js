@@ -13,6 +13,7 @@ import StepTwo from "./pages/signUpSeller/StepTwo";
 import { SignUpSellerContext } from "./contexts/SignUpSellerContext";
 import { useState } from "react";
 import StepThree from "./pages/signUpSeller/StepThree";
+import TestSignUp from "./pages/signUpSeller/TestSignUp";
 
 function App() {
   const [signUpSeller, setSignUpSeller] = useState({});
@@ -31,6 +32,7 @@ function App() {
         <StepOne path="/signUpSeller/stepOne" />
         <StepTwo path="/signUpSeller/stepTwo" />
         <StepThree path="/signUpSeller/stepThree" />
+        <TestSignUp path="/signUpSeller/test" />
       </Router>
     </SignUpSellerContext.Provider>
   );

@@ -2,6 +2,7 @@ import { navigate } from "@reach/router";
 import React, { useContext } from "react";
 import { SignUpSellerContext } from "../../contexts/SignUpSellerContext";
 import MiniNav from "./MiniNav";
+import "./StepOne.scss";
 
 export default function StepOne() {
   const { setSignUpSeller, signUpSeller } = useContext(SignUpSellerContext);
@@ -20,7 +21,7 @@ export default function StepOne() {
   }
 
   return (
-    <>
+    <div className="stepOne">
       <h1>Step One</h1>
       <p>
         Lad os komme igang! <br /> Fortæl os om dit brand
@@ -89,6 +90,6 @@ export default function StepOne() {
       </form>
 
       <MiniNav />
-    </>
+    </div>
   );
 }
