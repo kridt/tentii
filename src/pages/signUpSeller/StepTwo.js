@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { SignUpSellerContext } from "../../contexts/SignUpSellerContext";
+import { signUpSelerDb } from "../db/SignUpSellerDb";
 import MiniNav from "./MiniNav";
 import "./StepTwo.scss";
 
@@ -11,6 +12,19 @@ export default function StepTwo() {
   const { signUpSeller, setSignUpSeller } = useContext(SignUpSellerContext);
   const [cvr, setCvr] = useState(false);
   const [allCountries, setAllCountries] = useState([]);
+  const db = signUpSelerDb;
+  const [currentDb, setCurrentDb] = useState();
+  const [defaultFirstName, setDefaultFirstName] = useState("");
+  const [defaultLastName, setDefaultLastName] = useState("");
+
+  useEffect(() => {
+    db.collection("signUpSeller")
+      .get()
+      .then((item) => {
+        setCvr(item[0].company);
+        setCurrentDb(item);
+      });
+  }, [setCurrentDb, db]);
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
@@ -20,6 +34,11 @@ export default function StepTwo() {
 
   function cvrSetter(e) {
     setCvr(JSON.parse(e.target.value));
+    db.collection("signUpSeller")
+      .doc({ id: 1 })
+      .update({
+        company: JSON.parse(e.target.value),
+      });
   }
 
   useEffect(() => {
@@ -35,25 +54,43 @@ export default function StepTwo() {
       falseDiv.style.border = "2px solid #000";
       trueDiv.style.border = "2px solid #fff";
     }
-  }, [cvr]);
+
+    if (currentDb?.length !== 0) {
+      console.log("already exists");
+      db.collection("signUpSeller")
+        .get()
+        .then((item) => {
+          setDefaultFirstName(item[0]?.firstName);
+          setDefaultLastName(item[0]?.lastName);
+        });
+    } else {
+      console.log("does not exist");
+      return;
+    }
+  }, [cvr, setDefaultFirstName, setDefaultLastName, currentDb]);
 
   function stepTwoSignUpSellerPerson(e) {
     e.preventDefault();
-    setSignUpSeller({
+
+    db.collection("signUpSeller").doc({ id: 1 }).update({
+      country: e.target.country?.value,
+      company: false,
+    });
+
+    /* setSignUpSeller({
       ...signUpSeller,
       firstName: e.target.firstName?.value,
       lastName: e.target.lastName?.value,
       country: e.target.country?.value,
       company: false,
-    });
+    }); */
 
-    navigate("/signUpSeller/stepThree");
+    /* navigate("/signUpSeller/stepThree"); */
   }
 
   function cvrFirm(e) {
     e.preventDefault();
     const inputCvr = e.target.value;
-    console.log(inputCvr);
 
     if (inputCvr.length === 8) {
       fetch(`https://cvrapi.dk/api?country=dk&vat=${inputCvr}`)
@@ -88,6 +125,21 @@ export default function StepTwo() {
     }
   }
 
+  function updateLocalDatabaseFirstName(e) {
+    /* const lastName = e.target.lastName.value; */
+    db.collection("signUpSeller").doc({ id: 1 }).update({
+      firstName: e.target.value,
+    });
+  }
+
+  function updateLocalDatabaseLastName(e) {
+    /* const lastName = e.target.lastName.value; */
+    db.collection("signUpSeller").doc({ id: 1 }).update({
+      lastName: e.target.value,
+    });
+    console.log(e.target.value);
+  }
+
   return (
     <div className="stepTwo">
       <h1>Step Two</h1>
@@ -98,11 +150,16 @@ export default function StepTwo() {
 
         <form onClick={(e) => cvrSetter(e)} className="cvr">
           <div className="cvr__false">
-            <input type={"radio"} name="cvr" value={false} checked />
+            <input
+              type={"radio"}
+              name="cvr"
+              defaultValue={false}
+              defaultChecked
+            />
             <label>Jeg har ikke CVR-nummer og sælger som hobby</label>
           </div>
           <div className="cvr__true">
-            <input type={"radio"} name="cvr" value={true} />
+            <input type={"radio"} name="cvr" defaultValue={true} />
             <label>Jeg har allerede et firma og har et CVR-nummer</label>
           </div>
         </form>
@@ -124,23 +181,27 @@ export default function StepTwo() {
               <div>
                 <label>Fornavn</label>
                 <input
-                  type="text"
                   name="firstName"
+                  type="text"
+                  defaultValue={defaultFirstName}
                   placeholder="Dit Fornavn?"
+                  onBlur={(e) => updateLocalDatabaseFirstName(e)}
                 />
               </div>
               <div>
                 <label>Efternavn</label>
                 <input
-                  type="text"
                   name="lastName"
+                  type="text"
+                  defaultValue={defaultLastName}
                   placeholder="Dit efternavn?"
+                  onBlur={(e) => updateLocalDatabaseLastName(e)}
                 />
               </div>
               <div>
                 <label>Hvilket land bor du i?</label>
                 <input
-                  value={"Danmark"}
+                  defaultValue={"Danmark"}
                   name="country"
                   list="countrylist"
                   type={"text"}
@@ -160,7 +221,7 @@ export default function StepTwo() {
                 </datalist>
               </div>
 
-              <input type={"submit"} value="test" />
+              <input type={"submit"} defaultValue="test" />
             </form>
           </>
         )}

@@ -11,7 +11,6 @@ export default function StepThree() {
   const { signUpSeller, setSignUpSeller } = useContext(SignUpSellerContext);
   const [city, setCity] = useState("");
   const isCompany = signUpSeller.company;
-  console.log(signUpSeller.companyInfo);
   function allFormInfo(e) {
     e.preventDefault();
     const birthDate = e.target.birthDate?.value;
@@ -101,7 +100,7 @@ export default function StepThree() {
             </div>
             <div>
               <label>Land</label>
-              <input value={"Danmark"} type="text" />
+              <input defaultValue={"Danmark"} type="text" />
             </div>
 
             <input type={"submit"} value="Næste" />
