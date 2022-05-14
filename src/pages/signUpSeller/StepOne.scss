@@ -41,6 +41,8 @@
     border: 2px solid #fff;
     text-align: center;
     label {
+      color: #000;
+      margin: 0;
       font-size: 0.8em;
     }
     input {
@@ -167,7 +169,6 @@
     bottom: 1.2em;
     left: 1.5em;
     li {
-      font-family: Serif;
       height: 45px;
       margin-bottom: 45px;
       display: block;

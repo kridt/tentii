@@ -96,7 +96,7 @@ export default function StepOne() {
               <li style={{ color: "white" }}>Fordi jeg kan</li>
               <li style={{ color: "orange" }}>Fordi jeg er unik</li>
               <li style={{ color: "lightblue" }}>For ideen</li>
-              <li style={{ color: "red" }}>For noget større</li>
+              <li style={{ color: "blue" }}>For noget større</li>
               <li style={{ color: "pink" }}>Fordi jeg kan</li>
             </ul>
           </div>
