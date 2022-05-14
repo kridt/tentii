@@ -41,12 +41,6 @@ export default function StepOne() {
       });
   }, [setCurrentDb, db]);
 
-  function stepOneSignUpSeller(e) {
-    e.preventDefault();
-
-    navigate("/signUpSeller/stepTwo");
-  }
-
   function setTheBrandName(e) {
     setBrandName(e.target.value);
     db.collection("signUpSeller").doc({ id: 1 }).update({
@@ -118,10 +112,7 @@ export default function StepOne() {
         </div>
       </div> */}
 
-      <form
-        onSubmit={(e) => stepOneSignUpSeller(e)}
-        className="signUpSellerFormStepOne"
-      >
+      <form className="signUpSellerFormStepOne">
         <input
           type="text"
           name="brandName"
@@ -183,11 +174,7 @@ export default function StepOne() {
             <label>Jeg sælger når der kommer ordre - intet fast</label>
           </div>
         </div>
-
-        <input id="nextBut1" type="submit" value="Næste" />
       </form>
-
-      <MiniNav />
     </div>
   );
 }

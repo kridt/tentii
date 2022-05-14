@@ -170,13 +170,13 @@ export default function StepTwo() {
       <hr style={{ border: ".19em solid white", width: "85%" }} />
       <div className="info">
         {cvr ? (
-          <>
+          <div className="firmInfo">
             <h2>Fortæl os lidt om dit firma</h2>
             <form onChange={(e) => cvrFirm(e)}>
               <label>Hvad er dit cvr nummer?</label>
               <input type={"number"} />
             </form>
-          </>
+          </div>
         ) : (
           <>
             <h2>Fortæl os lidt om dig selv</h2>
@@ -223,14 +223,10 @@ export default function StepTwo() {
                   })} */}
                 </datalist>
               </div>
-
-              <input id="nextBut2" type={"submit"} value="Næste" />
             </form>
           </>
         )}
       </div>
-
-      <MiniNav />
     </div>
   );
 }

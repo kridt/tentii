@@ -143,14 +143,10 @@ export default function StepThree() {
                   <input type="number" name="phoneNumber" />
                 </div>
               </div>
-
-              <input type={"submit"} value="test" />
             </form>
           </div>
         </>
       )}
-
-      <MiniNav />
     </div>
   );
 }
