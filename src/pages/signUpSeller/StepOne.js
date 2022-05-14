@@ -14,6 +14,7 @@ export default function StepOne() {
   const [currentDb, setCurrentDb] = useState([]);
   const [brandName, setBrandName] = useState("");
   const [workLoad, setWorkLoad] = useState(1);
+
   useEffect(() => {
     db.collection("signUpSeller")
       .get()
@@ -43,27 +44,7 @@ export default function StepOne() {
   function stepOneSignUpSeller(e) {
     e.preventDefault();
 
-    const brandName = e.target.brandName.value;
-    const timeUsage = e.target.brandOption.value;
-
-    console.log(currentDb);
-    /* setSignUpSeller({ ...signUpSeller, brandName, timeUsage }); */
-
-    db.collection("signUpSeller")
-      .doc({ id: 1 })
-      .update({
-        timeUsage,
-        workLoadNumber: parseInt(timeUsage.split("#")[1]),
-        id: 1,
-      });
-
-    /* db.collection("signUpSeller")
-      .get()
-      .then((item) => {
-        console.log(item);
-      });
-
-    navigate("/signUpSeller/stepTwo"); */
+    navigate("/signUpSeller/stepTwo");
   }
 
   function setTheBrandName(e) {
@@ -78,6 +59,12 @@ export default function StepOne() {
     const timeUsageNumber = parseInt(workLoad.split("#")[1]);
     const forTheTest1 = e.target.parentElement.firstElementChild;
 
+    db.collection("signUpSeller").doc({ id: 1 }).update({
+      workLoadNumber: timeUsageNumber,
+      timeUsage: workLoad,
+    });
+
+    console.log(workLoad);
     console.log(timeUsageNumber);
     console.log(forTheTest1.value.split("#")[1]);
   }
@@ -88,14 +75,48 @@ export default function StepOne() {
 
   return (
     <div className="stepOne">
-      <h1>Step One</h1>
-      <p>
-        Lad os komme igang! <br /> Fortæl os om dit brand
+      <p
+        style={{
+          color: "white",
+          textAlign: "center",
+          marginTop: "4em",
+          fontSize: "1.3em",
+          fontWeight: "bold",
+          wordSpacing: ".05em",
+          lineHeight: "1.5em",
+        }}
+      >
+        Lad os komme igang! <br /> Fortæl os om dig og dit brand
       </p>
+      <div id="test">
+        <h4 className="wordCarousel">
+          <span>tentii - </span>
+          <div>
+            <ul className="flip5">
+              <li style={{ color: "white" }}>Fordi jeg kan</li>
+              <li style={{ color: "orange" }}>Fordi jeg er unik</li>
+              <li style={{ color: "lightblue" }}>For ideen</li>
+              <li style={{ color: "red" }}>For noget større</li>
+              <li style={{ color: "pink" }}>Fordi jeg kan</li>
+            </ul>
+          </div>
+        </h4>
+      </div>
 
-      <p>
-        tenti - <span>list of lines</span>
-      </p>
+      {/* <div id="container">
+        tentii -
+        <div id="flip">
+          <div>
+            <div>Work</div>
+          </div>
+          <div>
+            <div>lifestyle</div>
+          </div>
+          <div>
+            <div>Everthing</div>
+          </div>
+        </div>
+      </div> */}
 
       <form
         onSubmit={(e) => stepOneSignUpSeller(e)}
@@ -108,12 +129,21 @@ export default function StepOne() {
           onBlur={(e) => setTheBrandName(e)}
           defaultValue={brandName}
         />
-        <p>
+        <p style={{ color: "white", textAlign: "center" }}>
           Vi ser ofte at vores designere tager instiration fra deres
           kollektioner, stil, eller passion
         </p>
 
-        <p>Hvad beskriver dig bedst?</p>
+        <p
+          style={{
+            color: "white",
+            textAlign: "center",
+            fontWeight: "bold",
+            fontSize: "1.2em",
+          }}
+        >
+          Hvad beskriver dig bedst?
+        </p>
 
         <div onClick={(e) => setTheWorkLoad(e)} className="test">
           <div>
@@ -154,7 +184,7 @@ export default function StepOne() {
           </div>
         </div>
 
-        <input type="submit" value="Næste" />
+        <input id="nextBut1" type="submit" value="Næste" />
       </form>
 
       <MiniNav />
