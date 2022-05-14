@@ -85,7 +85,7 @@ export default function StepTwo() {
       company: false,
     }); */
 
-    /* navigate("/signUpSeller/stepThree"); */
+    navigate("/signUpSeller/stepThree");
   }
 
   function cvrFirm(e) {
@@ -142,11 +142,14 @@ export default function StepTwo() {
 
   return (
     <div className="stepTwo">
-      <h1>Step Two</h1>
-      <h2>Til det knap så kreative</h2>
+      <h2 style={{ color: "white", textAlign: "center", margin: "2.5em 0" }}>
+        Til det knap så kreative
+      </h2>
 
       <div>
-        <h2>Hvad beskriver dig bedst?</h2>
+        <h2 style={{ color: "white", textAlign: "center", fontSize: "1.2em" }}>
+          Hvad beskriver dig bedst?
+        </h2>
 
         <form onClick={(e) => cvrSetter(e)} className="cvr">
           <div className="cvr__false">
@@ -164,7 +167,7 @@ export default function StepTwo() {
           </div>
         </form>
       </div>
-
+      <hr style={{ border: ".19em solid white", width: "85%" }} />
       <div className="info">
         {cvr ? (
           <>
@@ -221,7 +224,7 @@ export default function StepTwo() {
                 </datalist>
               </div>
 
-              <input type={"submit"} defaultValue="test" />
+              <input id="nextBut2" type={"submit"} value="Næste" />
             </form>
           </>
         )}

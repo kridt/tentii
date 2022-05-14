@@ -1,5 +1,6 @@
 import { Link } from "@reach/router";
 import React from "react";
+import "./MiniNav.scss";
 
 export default function MiniNav() {
   return (

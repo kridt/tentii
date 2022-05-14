@@ -1,0 +1,14 @@
+nav {
+  width: 95%;
+  ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    li {
+      a {
+        color: white;
+        text-decoration: none;
+      }
+    }
+  }
+}
