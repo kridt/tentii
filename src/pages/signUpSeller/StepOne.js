@@ -2,13 +2,11 @@ import { Link, navigate } from "@reach/router";
 import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { SignUpSellerContext } from "../../contexts/SignUpSellerContext";
 import { signUpSelerDb } from "../db/SignUpSellerDb";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import "./StepOne.scss";
 
 export default function StepOne() {
-  const { setSignUpSeller, signUpSeller } = useContext(SignUpSellerContext);
   const db = signUpSelerDb;
   const [currentDb, setCurrentDb] = useState([]);
   const [brandName, setBrandName] = useState("");
@@ -187,7 +185,7 @@ export default function StepOne() {
       </form>
 
       <Link className="linkBackArrow" to="/signup">
-        <ArrowBackIosIcon />
+        &lt;
       </Link>
     </div>
   );

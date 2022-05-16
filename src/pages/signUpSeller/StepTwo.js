@@ -2,10 +2,7 @@ import { Link, navigate } from "@reach/router";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useContext } from "react";
-import { SignUpSellerContext } from "../../contexts/SignUpSellerContext";
 import { signUpSelerDb } from "../db/SignUpSellerDb";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import "./StepTwo.scss";
 
 export default function StepTwo() {
@@ -229,7 +226,7 @@ export default function StepTwo() {
       </div>
 
       <Link className="linkBackArrow" to="/signUpSeller/stepOne">
-        <ArrowBackIosIcon />
+        &lt;
       </Link>
     </div>
   );

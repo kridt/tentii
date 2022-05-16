@@ -2,7 +2,6 @@ import { Link, navigate } from "@reach/router";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import "./StepThree.scss";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { signUpSelerDb } from "../db/SignUpSellerDb";
 import { auth, db as db3 } from "../../firebase-config";
 
@@ -295,7 +294,7 @@ export default function StepThree() {
         className="linkBackArrow"
         to="/signUpSeller/stepTwo"
       >
-        <ArrowBackIosIcon />
+        &lt;
       </Link>
     </div>
   );
