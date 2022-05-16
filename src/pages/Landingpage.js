@@ -12,7 +12,7 @@ export default function Landingpage() {
       id: 1,
       productName: "Forgyldt ring1",
       artistName: "Aluna",
-      price: 200,
+      price: 2000,
     },
     {
       img: "https://via.placeholder.com/150x200",
