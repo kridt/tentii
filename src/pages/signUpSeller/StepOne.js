@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { signUpSelerDb } from "../db/SignUpSellerDb";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import "./StepOne.scss";
 
 export default function StepOne() {
