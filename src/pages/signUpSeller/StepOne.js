@@ -1,5 +1,5 @@
 import { Link, navigate } from "@reach/router";
-import React, { useContext } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { signUpSelerDb } from "../db/SignUpSellerDb";
