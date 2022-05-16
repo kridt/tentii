@@ -9,13 +9,12 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import "./StepTwo.scss";
 
 export default function StepTwo() {
-  const { signUpSeller, setSignUpSeller } = useContext(SignUpSellerContext);
-  const [cvr, setCvr] = useState(false);
   const [allCountries, setAllCountries] = useState([]);
   const db = signUpSelerDb;
   const [currentDb, setCurrentDb] = useState();
   const [defaultFirstName, setDefaultFirstName] = useState("");
   const [defaultLastName, setDefaultLastName] = useState("");
+  const [cvr, setCvr] = useState(false);
 
   useEffect(() => {
     db.collection("signUpSeller")
@@ -24,7 +23,7 @@ export default function StepTwo() {
         setCvr(item[0].company);
         setCurrentDb(item);
       });
-  }, [setCurrentDb, db]);
+  }, [setCurrentDb, db, setCvr]);
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
@@ -37,7 +36,7 @@ export default function StepTwo() {
     db.collection("signUpSeller")
       .doc({ id: 1 })
       .update({
-        company: JSON.parse(e.target.value),
+        isCompany: JSON.parse(e.target.value),
       });
   }
 
@@ -64,7 +63,6 @@ export default function StepTwo() {
           setDefaultLastName(item[0]?.lastName);
         });
     } else {
-      console.log("does not exist");
       return;
     }
   }, [cvr, setDefaultFirstName, setDefaultLastName, currentDb]);
@@ -88,6 +86,7 @@ export default function StepTwo() {
     navigate("/signUpSeller/stepThree");
   }
 
+  //fetches the data from virk.dk
   function cvrFirm(e) {
     e.preventDefault();
     const inputCvr = e.target.value;
@@ -108,7 +107,6 @@ export default function StepTwo() {
                   "Er det korrekt?"
               )
             ) {
-              console.log("ok pressed");
               db.collection("signUpSeller").doc({ id: 1 }).update({
                 company: true,
                 companyInfo: data,
@@ -116,7 +114,7 @@ export default function StepTwo() {
 
               navigate("/signUpSeller/stepThree");
             } else {
-              console.log("cancel pressed");
+              return;
             }
           } else {
             alert("CVR nummer findes ikke");

@@ -14,6 +14,8 @@ import { SignUpSellerContext } from "./contexts/SignUpSellerContext";
 import { useState } from "react";
 import StepThree from "./pages/signUpSeller/StepThree";
 import TestSignUp from "./pages/signUpSeller/TestSignUp";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
 
 function App() {
   const [signUpSeller, setSignUpSeller] = useState({});
@@ -33,6 +35,8 @@ function App() {
         <StepTwo path="/signUpSeller/stepTwo" />
         <StepThree path="/signUpSeller/stepThree" />
         <TestSignUp path="/signUpSeller/test" />
+        <Dashboard path="/dashboard" />
+        <Login path="/login" />
       </Router>
     </SignUpSellerContext.Provider>
   );
