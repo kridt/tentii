@@ -1,11 +1,10 @@
-import { navigate } from "@reach/router";
-import Localbase from "localbase";
+import { Link, navigate } from "@reach/router";
 import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { SignUpSellerContext } from "../../contexts/SignUpSellerContext";
 import { signUpSelerDb } from "../db/SignUpSellerDb";
-import MiniNav from "./MiniNav";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import "./StepOne.scss";
 
 export default function StepOne() {
@@ -187,7 +186,9 @@ export default function StepOne() {
         <input id="nextBut1" type="submit" value="Næste" />
       </form>
 
-      <MiniNav />
+      <Link className="linkBackArrow" to="/signup">
+        <ArrowBackIosIcon />
+      </Link>
     </div>
   );
 }

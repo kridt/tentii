@@ -18,6 +18,10 @@
 #phoneDiv {
   max-width: 85%;
   margin: 0 auto;
+  margin-top: 10px;
+  label {
+    margin: 0 0;
+  }
   div {
     input {
       padding-left: 4em;
@@ -28,7 +32,7 @@
     background-color: white;
     width: 8%;
     position: absolute;
-    left: 2em;
-    bottom: 22.3em;
+    left: 2.4em;
+    bottom: 20.9em;
   }
 }

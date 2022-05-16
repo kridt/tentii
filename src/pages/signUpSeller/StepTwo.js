@@ -1,11 +1,11 @@
-import { navigate } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { SignUpSellerContext } from "../../contexts/SignUpSellerContext";
 import { signUpSelerDb } from "../db/SignUpSellerDb";
-import MiniNav from "./MiniNav";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import "./StepTwo.scss";
 
 export default function StepTwo() {
@@ -109,11 +109,11 @@ export default function StepTwo() {
               )
             ) {
               console.log("ok pressed");
-              setSignUpSeller({
-                ...signUpSeller,
+              db.collection("signUpSeller").doc({ id: 1 }).update({
                 company: true,
                 companyInfo: data,
               });
+
               navigate("/signUpSeller/stepThree");
             } else {
               console.log("cancel pressed");
@@ -230,7 +230,9 @@ export default function StepTwo() {
         )}
       </div>
 
-      <MiniNav />
+      <Link className="linkBackArrow" to="/signUpSeller/stepOne">
+        <ArrowBackIosIcon />
+      </Link>
     </div>
   );
 }
