@@ -225,7 +225,7 @@ export default function StepTwo() {
         )}
       </div>
 
-      <Link className="linkBackArrow" to="/signUpSeller/stepOne">
+      <Link style={{ marginTop: "1em", color: "black", textDecoration: "none", fontSize: "2em" }} className="linkBackArrow" to="/signUpSeller/stepOne">
         &lt;
       </Link>
     </div>

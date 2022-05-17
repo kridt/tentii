@@ -183,7 +183,7 @@ export default function StepOne() {
         <input id="nextBut1" type="submit" value="Næste" />
       </form>
 
-      <Link className="linkBackArrow" to="/signup">
+      <Link style={{ marginTop: "1em", color: "black", textDecoration: "none", fontSize: "2em" }} className="linkBackArrow" to="/signup">
         &lt;
       </Link>
     </div>

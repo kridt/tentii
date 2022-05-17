@@ -16,7 +16,6 @@ export default function StepThree() {
   const [zipcode, setZipcode] = useState(null);
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
 
   useEffect(() => {
     db.collection("sellerPersonalInfo")
@@ -245,10 +244,10 @@ export default function StepThree() {
                 </div>
               </div>
 
-              <div id="phoneDiv">
+              <div >
                 <label>Telefonnummer</label>
                 <div>
-                  <p id="phone">+45</p>
+                  
                   <input
                     onBlur={(e) => {
                       db.collection("sellerPersonalInfo")
@@ -283,14 +282,14 @@ export default function StepThree() {
                 <input type={"password"} name="password" />
               </div>
 
-              <input type={"submit"} value="Opret Profil" />
+              <input style={{ border: "none" , backgroundColor:"orange", color: "white" }} type={"submit"} value="Opret Profil" />
             </form>
           </div>
         </>
       )}
 
       <Link
-        style={{ marginTop: "1em" }}
+        style={{ marginTop: "1em", color: "black", textDecoration: "none", fontSize: "2em" }}
         className="linkBackArrow"
         to="/signUpSeller/stepTwo"
       >

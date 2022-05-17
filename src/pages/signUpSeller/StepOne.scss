@@ -40,10 +40,12 @@
     background-color: #fff;
     border: 2px solid #fff;
     text-align: center;
+
     label {
       color: #000;
-      margin: 0;
       font-size: 0.8em;
+      height: 40px;
+      margin: 0 auto;
     }
     input {
       position: fixed;
@@ -53,7 +55,7 @@
   }
 }
 
-.test input[type="radio"] {
+.test input[type="radio"] + label {
   display: flex;
   height: 40px;
   margin-top: -4px;
@@ -66,7 +68,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 34px;
+  font-size: .8em;
+  height: 35px;
   border-radius: 10px;
   padding: 0.1em;
   position: relative;
@@ -74,6 +77,7 @@
   width: 100%;
   right: 3px;
   border: 2px solid #ff9900;
+  margin: 0 auto;
 }
 
 #nextBut1 {
