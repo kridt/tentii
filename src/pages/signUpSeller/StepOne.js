@@ -18,13 +18,6 @@ export default function StepOne() {
         if (item[0] !== undefined) {
           setBrandName(item[0].brandName);
 
-          function getWorkLoad() {
-            const thetest = document.querySelectorAll("input");
-
-            thetest[item[0].workLoadNumber].checked = "checked";
-          }
-          getWorkLoad();
-
           /* theField[item[0].workLoadNumber];
           theField[item[0].workLoadNumber].checked = "checked"; */
         } else {
@@ -51,18 +44,23 @@ export default function StepOne() {
   }
 
   function setTheWorkLoad(e) {
-    const workLoad = e.target.value;
+    const alldivs = e.target.parentElement.children;
+
+    e.target.classList.add("active");
+    for (let i = 0; i < alldivs.length; i++) {
+      if (alldivs[i] !== e.target) {
+        alldivs[i].classList.remove("active");
+      }
+    }
+
+    /* const workLoad = e.target.value;
     const timeUsageNumber = parseInt(workLoad.split("#")[1]);
     const forTheTest1 = e.target.parentElement.firstElementChild;
 
     db.collection("signUpSeller").doc({ id: 1 }).update({
       workLoadNumber: timeUsageNumber,
       timeUsage: workLoad,
-    });
-
-    console.log(workLoad);
-    console.log(timeUsageNumber);
-    console.log(forTheTest1.value.split("#")[1]);
+    }); */
   }
 
   /*  useEffect(() => {
@@ -141,7 +139,22 @@ export default function StepOne() {
           Hvad beskriver dig bedst?
         </p>
 
-        <div onClick={(e) => setTheWorkLoad(e)} className="test">
+        <div className="workLoad">
+          <div onClick={(e) => setTheWorkLoad(e)} className="workLoad__item">
+            Jeg sælger fuldtid
+          </div>
+          <div onClick={(e) => setTheWorkLoad(e)} className="workLoad__item">
+            Jeg er sælger deltid, men har store drømme
+          </div>
+          <div onClick={(e) => setTheWorkLoad(e)} className="workLoad__item">
+            Jeg sælger deltid og sådan kan jeg lide det
+          </div>
+          <div onClick={(e) => setTheWorkLoad(e)} className="workLoad__item">
+            Jeg sælger når der kommer ordre - intet fast
+          </div>
+        </div>
+
+        {/* <div onClick={(e) => setTheWorkLoad(e)} className="test">
           <div>
             <input
               type={"radio"}
@@ -178,12 +191,21 @@ export default function StepOne() {
             />
             <label>Jeg sælger når der kommer ordre - intet fast</label>
           </div>
-        </div>
+        </div> */}
 
         <input id="nextBut1" type="submit" value="Næste" />
       </form>
 
-      <Link style={{ marginTop: "1em", color: "black", textDecoration: "none", fontSize: "2em" }} className="linkBackArrow" to="/signup">
+      <Link
+        style={{
+          marginTop: "1em",
+          color: "black",
+          textDecoration: "none",
+          fontSize: "2em",
+        }}
+        className="linkBackArrow"
+        to="/signup"
+      >
         &lt;
       </Link>
     </div>
