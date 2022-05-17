@@ -7,28 +7,40 @@ import "./StepOne.scss";
 
 export default function StepOne() {
   const db = signUpSelerDb;
-  const [currentDb, setCurrentDb] = useState([]);
   const [brandName, setBrandName] = useState("");
-  const [workLoad, setWorkLoad] = useState(1);
+  const [workLoad, setWorkLoad] = useState("");
+  const [currentDb, setCurrentDb] = useState({}); // current database
 
   useEffect(() => {
     db.collection("signUpSeller")
       .get()
       .then((item) => {
-        if (item[0] !== undefined) {
-          setBrandName(item[0].brandName);
-
-          /* theField[item[0].workLoadNumber];
-          theField[item[0].workLoadNumber].checked = "checked"; */
-        } else {
+        if (item.length === 0) {
           db.collection("signUpSeller").add({
             id: 1,
+            brandName: null,
+            workLoad: null,
           });
+        } else {
+          setBrandName(item[0].brandName);
+          setWorkLoad(item[0].workLoad);
         }
-        console.log(item[0].brandName);
-        setCurrentDb(item);
+
+        setCurrentDb(item[0]);
       });
-  }, [setCurrentDb, db]);
+  }, [db, setBrandName, setWorkLoad]);
+
+  useEffect(() => {
+    db.collection("signUpSeller")
+      .get()
+      .then((item) => {
+        document.querySelectorAll(".workLoad__item").forEach((div) => {
+          if (div.innerHTML === item[0].workLoad) {
+            div.classList.add("active");
+          }
+        });
+      });
+  }, [currentDb]);
 
   function stepOneSignUpSeller(e) {
     e.preventDefault();
@@ -36,15 +48,13 @@ export default function StepOne() {
     navigate("/signUpSeller/stepTwo");
   }
 
-  function setTheBrandName(e) {
-    setBrandName(e.target.value);
-    db.collection("signUpSeller").doc({ id: 1 }).update({
-      brandName: e.target.value,
-    });
-  }
-
   function setTheWorkLoad(e) {
     const alldivs = e.target.parentElement.children;
+    const textInfo = e.target.innerText;
+
+    db.collection("signUpSeller").doc({ id: 1 }).update({
+      workLoad: textInfo,
+    });
 
     e.target.classList.add("active");
     for (let i = 0; i < alldivs.length; i++) {
@@ -52,20 +62,9 @@ export default function StepOne() {
         alldivs[i].classList.remove("active");
       }
     }
-
-    /* const workLoad = e.target.value;
-    const timeUsageNumber = parseInt(workLoad.split("#")[1]);
-    const forTheTest1 = e.target.parentElement.firstElementChild;
-
-    db.collection("signUpSeller").doc({ id: 1 }).update({
-      workLoadNumber: timeUsageNumber,
-      timeUsage: workLoad,
-    }); */
   }
 
-  /*  useEffect(() => {
-    console.log(theField[1]);
-  }, []); */
+  /* console.log(currentDb); */
 
   return (
     <div className="stepOne">
@@ -91,7 +90,7 @@ export default function StepOne() {
               <li style={{ color: "orange" }}>Fordi jeg er unik</li>
               <li style={{ color: "lightblue" }}>For ideen</li>
               <li style={{ color: "blue" }}>For noget større</li>
-              <li style={{ color: "pink" }}>Fordi jeg kan</li>
+              <li style={{ color: "pink" }}>Fordi jeg er speciel</li>
             </ul>
           </div>
         </h4>
@@ -120,7 +119,12 @@ export default function StepOne() {
           type="text"
           name="brandName"
           placeholder={"Hvad er dit brand?"}
-          onBlur={(e) => setTheBrandName(e)}
+          onBlur={(e) =>
+            db
+              .collection("signUpSeller")
+              .doc({ id: 1 })
+              .update({ brandName: e.target.value })
+          }
           defaultValue={brandName}
         />
         <p style={{ color: "white", textAlign: "center" }}>
