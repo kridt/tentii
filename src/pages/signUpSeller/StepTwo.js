@@ -6,27 +6,35 @@ import { signUpSelerDb } from "../db/SignUpSellerDb";
 import "./StepTwo.scss";
 
 export default function StepTwo() {
-  const [allCountries, setAllCountries] = useState([]);
   const db = signUpSelerDb;
-  const [currentDb, setCurrentDb] = useState();
-  const [defaultFirstName, setDefaultFirstName] = useState("");
-  const [defaultLastName, setDefaultLastName] = useState("");
+  const [currentDb, setCurrentDb] = useState({});
+  const [defaultFirstName, setDefaultFirstName] = useState(null);
+  const [defaultLastName, setDefaultLastName] = useState(null);
+  const [isCompany, setIsCompany] = useState(false);
   const [cvr, setCvr] = useState(false);
 
   useEffect(() => {
     db.collection("signUpSeller")
       .get()
       .then((item) => {
-        setCvr(item[0].company);
-        setCurrentDb(item);
+        if (item[0].isCompany === undefined) {
+          db.collection("signUpSeller")
+            .doc({ id: 1 })
+            .update({
+              isCompany: false,
+              personalInfo: {
+                firstName: null,
+                lastName: null,
+              },
+              cvr: null,
+            });
+        } else {
+          setDefaultFirstName(item[0].personalInfo?.firstName);
+          setDefaultLastName(item[0].personalInfo?.lastName);
+          setIsCompany(item[0].isCompany);
+        }
       });
   }, [setCurrentDb, db, setCvr]);
-
-  useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((res) => res.json())
-      .then((data) => setAllCountries(data));
-  }, [setAllCountries]);
 
   function cvrSetter(e) {
     setCvr(JSON.parse(e.target.value));
@@ -41,46 +49,19 @@ export default function StepTwo() {
     const trueDiv = document.querySelector(".cvr__true");
     const falseDiv = document.querySelector(".cvr__false");
 
-    if (cvr === true) {
-      trueDiv.style.border = "2px solid #000";
-      falseDiv.style.border = "2px solid #fff";
+    if (isCompany === true) {
+      trueDiv.classList.add("active");
+      falseDiv.classList.remove("active");
     }
 
-    if (cvr === false) {
-      falseDiv.style.border = "2px solid #000";
-      trueDiv.style.border = "2px solid #fff";
+    if (isCompany === false) {
+      falseDiv.classList.add("active");
+      trueDiv.classList.remove("active");
     }
-
-    if (currentDb?.length !== 0) {
-      console.log("already exists");
-      db.collection("signUpSeller")
-        .get()
-        .then((item) => {
-          setDefaultFirstName(item[0]?.firstName);
-          setDefaultLastName(item[0]?.lastName);
-        });
-    } else {
-      return;
-    }
-  }, [cvr, setDefaultFirstName, setDefaultLastName, currentDb]);
+  }, [isCompany, setDefaultFirstName, setDefaultLastName, currentDb]);
 
   function stepTwoSignUpSellerPerson(e) {
     e.preventDefault();
-
-    db.collection("signUpSeller").doc({ id: 1 }).update({
-      country: e.target.country?.value,
-      company: false,
-    });
-
-    /* setSignUpSeller({
-      ...signUpSeller,
-      firstName: e.target.firstName?.value,
-      lastName: e.target.lastName?.value,
-      country: e.target.country?.value,
-      company: false,
-    }); */
-
-    navigate("/signUpSeller/stepThree");
   }
 
   //fetches the data from virk.dk
@@ -120,21 +101,6 @@ export default function StepTwo() {
     }
   }
 
-  function updateLocalDatabaseFirstName(e) {
-    /* const lastName = e.target.lastName.value; */
-    db.collection("signUpSeller").doc({ id: 1 }).update({
-      firstName: e.target.value,
-    });
-  }
-
-  function updateLocalDatabaseLastName(e) {
-    /* const lastName = e.target.lastName.value; */
-    db.collection("signUpSeller").doc({ id: 1 }).update({
-      lastName: e.target.value,
-    });
-    console.log(e.target.value);
-  }
-
   return (
     <div className="stepTwo">
       <h2 style={{ color: "white", textAlign: "center", margin: "2.5em 0" }}>
@@ -146,27 +112,84 @@ export default function StepTwo() {
           Hvad beskriver dig bedst?
         </h2>
 
-        <form onClick={(e) => cvrSetter(e)} className="cvr">
+        <form className="cvr">
           <div className="cvr__false">
             <input
               type={"radio"}
               name="cvr"
-              defaultValue={false}
-              defaultChecked
+              onClick={() => {
+                setIsCompany(false);
+                db.collection("signUpSeller").doc({ id: 1 }).update({
+                  isCompany: false,
+                });
+              }}
+              defaultChecked={false}
             />
             <label>Jeg har ikke CVR-nummer og sælger som hobby</label>
           </div>
           <div className="cvr__true">
-            <input type={"radio"} name="cvr" defaultValue={true} />
+            <input
+              type={"radio"}
+              name="cvr"
+              onClick={() => {
+                setIsCompany(true);
+                db.collection("signUpSeller").doc({ id: 1 }).update({
+                  isCompany: true,
+                });
+              }}
+              defaultChecked={true}
+            />
             <label>Jeg har allerede et firma og har et CVR-nummer</label>
           </div>
         </form>
       </div>
       <hr style={{ border: ".19em solid white", width: "85%" }} />
       <div className="info">
-        {cvr ? (
+        {isCompany ? (
           <>
             <h2>Fortæl os lidt om dit firma</h2>
+            <div>
+              <label>Fornavn</label>
+              <input
+                name="firstName"
+                type="text"
+                defaultValue={defaultFirstName}
+                placeholder="Dit Fornavn?"
+                onBlur={(e) => {
+                  setDefaultFirstName(e.target.value);
+
+                  db.collection("signUpSeller")
+                    .doc({ id: 1 })
+                    .update({
+                      personalInfo: {
+                        firstName: e.target.value,
+                        lastName: defaultLastName,
+                      },
+                    });
+                }}
+              />
+            </div>
+            <div>
+              <label>Efternavn</label>
+              <input
+                name="lastName"
+                type="text"
+                defaultValue={defaultLastName}
+                placeholder="Dit efternavn?"
+                onBlur={(e) => {
+                  setDefaultLastName(e.target.value);
+
+                  db.collection("signUpSeller")
+                    .doc({ id: 1 })
+                    .update({
+                      personalInfo: {
+                        firstName: defaultFirstName,
+                        lastName: e.target.value,
+                      },
+                    });
+                }}
+              />
+            </div>
             <form onChange={(e) => cvrFirm(e)}>
               <label>Hvad er dit cvr nummer?</label>
               <input type={"number"} />
@@ -183,7 +206,17 @@ export default function StepTwo() {
                   type="text"
                   defaultValue={defaultFirstName}
                   placeholder="Dit Fornavn?"
-                  onBlur={(e) => updateLocalDatabaseFirstName(e)}
+                  onBlur={(e) => {
+                    setDefaultFirstName(e.target.value);
+                    db.collection("signUpSeller")
+                      .doc({ id: 1 })
+                      .update({
+                        personalInfo: {
+                          firstName: e.target.value,
+                          lastName: defaultLastName,
+                        },
+                      });
+                  }}
                 />
               </div>
               <div>
@@ -193,7 +226,18 @@ export default function StepTwo() {
                   type="text"
                   defaultValue={defaultLastName}
                   placeholder="Dit efternavn?"
-                  onBlur={(e) => updateLocalDatabaseLastName(e)}
+                  onBlur={(e) => {
+                    setDefaultLastName(e.target.value);
+
+                    db.collection("signUpSeller")
+                      .doc({ id: 1 })
+                      .update({
+                        personalInfo: {
+                          firstName: defaultFirstName,
+                          lastName: e.target.value,
+                        },
+                      });
+                  }}
                 />
               </div>
               <div>
@@ -225,7 +269,16 @@ export default function StepTwo() {
         )}
       </div>
 
-      <Link style={{ marginTop: "1em", color: "black", textDecoration: "none", fontSize: "2em" }} className="linkBackArrow" to="/signUpSeller/stepOne">
+      <Link
+        style={{
+          marginTop: "1em",
+          color: "black",
+          textDecoration: "none",
+          fontSize: "2em",
+        }}
+        className="linkBackArrow"
+        to="/signUpSeller/stepOne"
+      >
         &lt;
       </Link>
     </div>
