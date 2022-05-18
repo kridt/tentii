@@ -7,27 +7,29 @@ import { sendEmailVerification } from "firebase/auth";
 import { navigate } from "@reach/router";
 
 export default function Dashboard() {
-  const [user, setUser] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
   const [userData, setUserData] = useState([]);
   const [userInfo, setUserInfo] = useState({});
   useEffect(() => {
     setUserInfo(
-      userData.find((user) => user.id === auth?.currentUser?.uid)?.data()
+      userData
+        .find((currentUser) => currentUser.id === auth?.currentUser?.uid)
+        ?.data()
     );
   }, [userData, auth?.currentUser?.uid, setUserInfo]);
 
-  if (user === null) {
+  if (currentUser === null) {
     navigate("/login");
   }
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUser(user);
+    auth.onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        setCurrentUser(currentUser);
       } else {
-        setUser(null);
+        setCurrentUser(null);
       }
     });
-  }, [setUser, auth]);
+  }, [setCurrentUser, auth]);
 
   useEffect(() => {
     db.collection("users")
@@ -51,15 +53,17 @@ export default function Dashboard() {
       <h1>Dashboard</h1>
 
       <div>
-        <p>Din email: {user?.email}</p>
-        {user?.emailVerified ? (
+        <p>Din email: {currentUser?.email}</p>
+        {currentUser?.emailVerified ? (
           <>
             <p>Din email er verificeret</p>
           </>
         ) : (
           <>
             <p>Din email er ikke verificeret</p>
-            <button onClick={() => sendEmailVerification(user).then((e) => e)}>
+            <button
+              onClick={() => sendEmailVerification(currentUser).then((e) => e)}
+            >
               verificer den her
             </button>
           </>

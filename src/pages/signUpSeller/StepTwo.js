@@ -11,7 +11,6 @@ export default function StepTwo() {
   const [defaultFirstName, setDefaultFirstName] = useState(null);
   const [defaultLastName, setDefaultLastName] = useState(null);
   const [isCompany, setIsCompany] = useState(false);
-  const [cvr, setCvr] = useState(false);
 
   useEffect(() => {
     db.collection("signUpSeller")
@@ -26,7 +25,6 @@ export default function StepTwo() {
                 firstName: null,
                 lastName: null,
               },
-              cvr: null,
             });
         } else {
           setDefaultFirstName(item[0].personalInfo?.firstName);
@@ -34,16 +32,7 @@ export default function StepTwo() {
           setIsCompany(item[0].isCompany);
         }
       });
-  }, [setCurrentDb, db, setCvr]);
-
-  function cvrSetter(e) {
-    setCvr(JSON.parse(e.target.value));
-    db.collection("signUpSeller")
-      .doc({ id: 1 })
-      .update({
-        isCompany: JSON.parse(e.target.value),
-      });
-  }
+  }, [setCurrentDb, db]);
 
   useEffect(() => {
     const trueDiv = document.querySelector(".cvr__true");
@@ -62,6 +51,7 @@ export default function StepTwo() {
 
   function stepTwoSignUpSellerPerson(e) {
     e.preventDefault();
+    navigate("/signUpSeller/stepThree");
   }
 
   //fetches the data from virk.dk
@@ -86,7 +76,7 @@ export default function StepTwo() {
               )
             ) {
               db.collection("signUpSeller").doc({ id: 1 }).update({
-                company: true,
+                isCompany: true,
                 companyInfo: data,
               });
 

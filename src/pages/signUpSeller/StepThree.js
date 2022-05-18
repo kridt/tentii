@@ -16,32 +16,45 @@ export default function StepThree() {
   const [zipcode, setZipcode] = useState(null);
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   useEffect(() => {
-    db.collection("sellerPersonalInfo")
+    db.collection("signUpSeller")
       .get()
       .then((item) => {
-        if (item.length === 0) {
-          db.collection("sellerPersonalInfo").add({
-            id: 1,
-            birthday: null,
-            address: null,
-            phoneNumber: null,
-            zipcode: null,
-            email: null,
-            city: null,
-          });
-          console.log("new database");
-        } else {
-          setPersonalInfoDb(item[0]);
-          setBirthday(item[0].birthday);
-          setAddress(item[0].address);
-          setCity(item[0].city);
-          setZipcode(item[0].zipcode);
-          setEmail(item[0].email);
-          setPhoneNumber(item[0].phoneNumber);
+        setIsCompany(item[0].isCompany);
 
-          console.log("already exists");
+        if (item[0].isCompany === true) {
+          setCompanyInfo(item[0].companyInfo);
+        }
+
+        if (item[0].personalInfo.birthday === undefined) {
+          setFirstName(item[0].personalInfo.firstName);
+          setLastName(item[0].personalInfo.lastName);
+          db.collection("signUpSeller")
+            .doc({ id: 1 })
+            .update({
+              personalInfo: {
+                fistName: item[0].personalInfo.firstName,
+                lastName: item[0].personalInfo.lastName,
+                birthday: null,
+                address: null,
+                city: null,
+                zipcode: null,
+                email: null,
+                phoneNumber: null,
+              },
+            });
+        } else {
+          setBirthday(item[0].personalInfo?.birthday);
+          setAddress(item[0].personalInfo?.address);
+          setCity(item[0].personalInfo?.city);
+          setZipcode(item[0].personalInfo?.zipcode);
+          setEmail(item[0].personalInfo?.email);
+          setPhoneNumber(item[0].personalInfo?.phoneNumber);
+          setFirstName(item[0].personalInfo?.firstName);
+          setLastName(item[0].personalInfo?.lastName);
         }
       });
   }, [
@@ -53,6 +66,10 @@ export default function StepThree() {
     setZipcode,
     setEmail,
     setPhoneNumber,
+    setFirstName,
+    setLastName,
+    setIsCompany,
+    setCompanyInfo,
   ]);
 
   function allFormInfo(e) {
@@ -66,7 +83,10 @@ export default function StepThree() {
       city: city,
       zipcode: zipcode,
       phoneNumber: phoneNumber,
+      firstName: firstName,
+      lastName: lastName,
     };
+
     auth.createUserWithEmailAndPassword(email, password).then((user) => {
       return db3
         .collection("users")
@@ -83,18 +103,6 @@ export default function StepThree() {
           navigate("/dashboard");
         });
     });
-
-    /* setSignUpSeller({
-      ...signUpSeller,
-      personalInfo: {
-        birthday: birthDate,
-        zipcode: parseInt(postCode),
-        adress,
-        phone: parseInt(phoneNumber),
-        cityInfo,
-      },
-    }); */
-    /*  navigate("/signUpSeller/test"); */
   }
 
   function findCity(e) {
@@ -106,11 +114,20 @@ export default function StepThree() {
         .then((data) => {
           if (data[postCode] !== undefined) {
             setCity(data[postCode]);
-            db.collection("sellerPersonalInfo")
+            setZipcode(parseInt(postCode));
+            db.collection("signUpSeller")
               .doc({ id: 1 })
               .update({
-                city: data[postCode],
-                zipcode: parseInt(postCode),
+                personalInfo: {
+                  firstName: firstName,
+                  lastName: lastName,
+                  birthday: birthday,
+                  address: address,
+                  phoneNumber: phoneNumber,
+                  email: email,
+                  city: data[postCode],
+                  zipcode: postCode,
+                },
               });
           } else {
             alert("Postnummer findes ikke");
@@ -124,6 +141,8 @@ export default function StepThree() {
 
     setIsCompany(false);
   }
+
+  console.log(companyInfo);
 
   /* on your mind cvr 42023108 */
   return (
@@ -200,9 +219,21 @@ export default function StepThree() {
                 <label>Fødselsdato</label>
                 <input
                   onBlur={(e) => {
-                    db.collection("sellerPersonalInfo").doc({ id: 1 }).update({
-                      birthday: e.target.value,
-                    });
+                    setBirthday(e.target.value);
+                    db.collection("signUpSeller")
+                      .doc({ id: 1 })
+                      .update({
+                        personalInfo: {
+                          birthday: e.target.value,
+                          firstName: firstName,
+                          lastName: lastName,
+                          address: address,
+                          city: city,
+                          zipcode: zipcode,
+                          email: email,
+                          phoneNumber: phoneNumber,
+                        },
+                      });
                   }}
                   defaultValue={birthday}
                   type="date"
@@ -219,9 +250,21 @@ export default function StepThree() {
 
                 <input
                   onBlur={(e) => {
-                    db.collection("sellerPersonalInfo").doc({ id: 1 }).update({
-                      address: e.target.value,
-                    });
+                    setAddress(e.target.value);
+                    db.collection("signUpSeller")
+                      .doc({ id: 1 })
+                      .update({
+                        personalInfo: {
+                          birthday: birthday,
+                          firstName: firstName,
+                          lastName: lastName,
+                          address: e.target.value,
+                          city: city,
+                          zipcode: zipcode,
+                          email: email,
+                          phoneNumber: phoneNumber,
+                        },
+                      });
                   }}
                   defaultValue={address}
                   type="text"
@@ -244,16 +287,25 @@ export default function StepThree() {
                 </div>
               </div>
 
-              <div >
+              <div>
                 <label>Telefonnummer</label>
                 <div>
-                  
                   <input
                     onBlur={(e) => {
-                      db.collection("sellerPersonalInfo")
+                      setPhoneNumber(e.target.value);
+                      db.collection("signUpSeller")
                         .doc({ id: 1 })
                         .update({
-                          phoneNumber: parseInt(e.target.value),
+                          personalInfo: {
+                            birthday: birthday,
+                            firstName: firstName,
+                            lastName: lastName,
+                            address: address,
+                            city: city,
+                            zipcode: zipcode,
+                            email: email,
+                            phoneNumber: parseInt(e.target.value),
+                          },
                         });
                     }}
                     defaultValue={phoneNumber}
@@ -267,9 +319,21 @@ export default function StepThree() {
                 <label>E-mail</label>
                 <input
                   onBlur={(e) => {
-                    db.collection("sellerPersonalInfo").doc({ id: 1 }).update({
-                      email: e.target.value,
-                    });
+                    setEmail(e.target.value);
+                    db.collection("signUpSeller")
+                      .doc({ id: 1 })
+                      .update({
+                        personalInfo: {
+                          birthday: birthday,
+                          firstName: firstName,
+                          lastName: lastName,
+                          address: address,
+                          city: city,
+                          zipcode: zipcode,
+                          email: e.target.value,
+                          phoneNumber: phoneNumber,
+                        },
+                      });
                   }}
                   defaultValue={email}
                   type={"email"}
@@ -282,14 +346,27 @@ export default function StepThree() {
                 <input type={"password"} name="password" />
               </div>
 
-              <input style={{ border: "none" , backgroundColor:"orange", color: "white" }} type={"submit"} value="Opret Profil" />
+              <input
+                style={{
+                  border: "none",
+                  backgroundColor: "orange",
+                  color: "white",
+                }}
+                type={"submit"}
+                value="Opret Profil"
+              />
             </form>
           </div>
         </>
       )}
 
       <Link
-        style={{ marginTop: "1em", color: "black", textDecoration: "none", fontSize: "2em" }}
+        style={{
+          marginTop: "1em",
+          color: "black",
+          textDecoration: "none",
+          fontSize: "2em",
+        }}
         className="linkBackArrow"
         to="/signUpSeller/stepTwo"
       >
