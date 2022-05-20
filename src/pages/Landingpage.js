@@ -1,11 +1,14 @@
 import { Link } from "@reach/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import ProductCard from "../components/ProductCard";
 import SideNav from "../components/SideNav";
+import { auth, db } from "../firebase-config";
 import "./Landingpage.scss";
 
 export default function Landingpage() {
+  const [currentUser, setCurrentUser] = useState({});
+  const [allProducts, setAllProducts] = useState([]);
   const testProducts = [
     {
       img: "https://via.placeholder.com/150x200",
@@ -58,10 +61,52 @@ export default function Landingpage() {
     },
   ];
 
+  const sellers = [456789, 852852, 123456, 321123, 321123, 123123];
+
+  useEffect(() => {
+    db.collection("allProducts")
+      .get()
+      .then((product) => setAllProducts(product.docs));
+  }, [setAllProducts]);
+
+  function test2() {
+    const yes = allProducts.filter(
+      (product) => product.data().seller === 123123
+    );
+    console.log(yes.map((product) => product.data()));
+  }
+
+  function test(e) {
+    sellers.map((id) => {
+      const sellersProducts = allProducts.filter(
+        (product) => product.data().seller === id
+      );
+      db.collection("sellers")
+        .doc(`${id}`)
+        .set({
+          backgroundImg: "https://via.placeholder.com/150x200",
+          displayName: "Aluna",
+          email: null,
+          followers: 25,
+          personalTags: ["tag1", "tag2", "tag3"],
+          primaryColor: "red",
+          products: sellersProducts.map((product) => product.data()),
+          profileDescription: "Lorem ipsum dolor sit amet",
+          profileImg: "https://via.placeholder.com/150x200",
+          ratings: 2.5,
+          secondaryColor: "blue",
+          sellerId: id,
+        });
+    });
+  }
+
+  auth.onAuthStateChanged((user) =>
+    user ? setCurrentUser(user) : setCurrentUser(null)
+  );
   return (
     <>
       <NavBar />
-      <SideNav />
+      {/* <button onClick={() => test()}>set database</button> */}
 
       <div className="goldenDesigns">
         <div className="headOfGoldenDesigns">
@@ -91,7 +136,6 @@ export default function Landingpage() {
           </div>
         </div>
       </div>
-
       <div className="goldenDesigns spring">
         <div className="headOfGoldenDesigns">
           <h1>Forårsdesigns</h1>
@@ -148,7 +192,6 @@ export default function Landingpage() {
           </div>
         </div>
       </div>
-
       <div className="joinTentii">
         <div className="joinTentii__text">
           <p>Er du klar til at starte din rejse?</p>

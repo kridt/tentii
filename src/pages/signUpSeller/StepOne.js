@@ -119,7 +119,7 @@ export default function StepOne() {
           type="text"
           name="brandName"
           placeholder={"Hvad er dit brand?"}
-          onBlur={(e) =>
+          onChange={(e) =>
             db
               .collection("signUpSeller")
               .doc({ id: 1 })

@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./StepThree.scss";
 import { signUpSelerDb } from "../db/SignUpSellerDb";
 import { auth, db as db3 } from "../../firebase-config";
+import get6digitnum from "../../functions/get6digitnum";
 
 export default function StepThree() {
   const [personalInfoDb, setPersonalInfoDb] = useState({});
@@ -18,11 +19,13 @@ export default function StepThree() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-
+  const newSellerId = get6digitnum();
+  const [brandName, setBrandName] = useState("");
   useEffect(() => {
     db.collection("signUpSeller")
       .get()
       .then((item) => {
+        setBrandName(item[0].brandName);
         setIsCompany(item[0].isCompany);
 
         if (item[0].isCompany === true) {
@@ -93,14 +96,35 @@ export default function StepThree() {
         .doc(user.user.uid)
         .set({
           id: user.user.uid,
-          email: user.user.email,
+          email: email,
           isSeller: true,
+          sellerId: newSellerId,
           isAdmin: false,
           data: data,
         })
         .then(() => {
-          db.collection("signUpSeller").delete();
-          navigate("/dashboard");
+          db3
+            .collection("sellers")
+            .doc(`${newSellerId}`)
+            .set({
+              sellerId: newSellerId,
+              email: email,
+              followsers: 0,
+              displayName: brandName,
+              personalTags: [],
+              primaryColor: "red",
+              secondaryColor: "blue",
+              products: [],
+              profileImage: "https://via.placeholder.com/150",
+              profileDescription: "Your profile description",
+              rating: 0,
+              reviews: [],
+              uid: user.user.uid,
+            })
+            .then(() => {
+              db.collection("signUpSeller").delete();
+              navigate("/dashboard");
+            });
         });
     });
   }
@@ -141,8 +165,6 @@ export default function StepThree() {
 
     setIsCompany(false);
   }
-
-  console.log(companyInfo);
 
   /* on your mind cvr 42023108 */
   return (

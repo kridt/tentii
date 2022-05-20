@@ -3,7 +3,7 @@ import React from "react";
 import "./NavBar.scss";
 import SideNav from "./SideNav";
 
-export default function NavBar({ sideNav }) {
+export default function NavBar() {
   return (
     <>
       <nav id="navbar">
@@ -25,8 +25,6 @@ export default function NavBar({ sideNav }) {
           </li>
         </ul>
       </nav>
-
-      {sideNav ? <SideNav trueFalse={true} /> : null}
     </>
   );
 }

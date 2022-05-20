@@ -23,7 +23,7 @@ function App() {
   return (
     <SignUpSellerContext.Provider value={{ setSignUpSeller, signUpSeller }}>
       <Router className="App">
-        <Landingpage exact path="/" />
+        <Landingpage path="/" />
         <Sellers path="/sellers" />
         <Discover path="/discover" />
         <About path="/about" />
