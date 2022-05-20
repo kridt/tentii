@@ -99,6 +99,7 @@ export default function StepThree() {
           email: email,
           isSeller: true,
           sellerId: newSellerId,
+          brandName: brandName,
           isAdmin: false,
           data: data,
         })
