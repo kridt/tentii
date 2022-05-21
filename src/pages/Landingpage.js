@@ -2,6 +2,7 @@ import { Link } from "@reach/router";
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import ProductCard from "../components/ProductCard";
+import ShowProfile from "../components/ShowProfile";
 import SideNav from "../components/SideNav";
 import { auth, db } from "../firebase-config";
 import "./Landingpage.scss";
@@ -60,6 +61,27 @@ export default function Landingpage() {
       price: 200,
     },
   ];
+  const forårsdesigns = {
+    backgroundColor: "rgba(112, 145, 118, 0.75)",
+    secondaryColor: "rgba(112, 145, 118, 1)",
+    title: "Forårsdesigns",
+    punchLine: "Gå en lysere fremtid i møde",
+    bigImg: "https://via.placeholder.com/363x300",
+  };
+  const gyldneDesigns = {
+    backgroundColor: "rgba(255, 153, 0, 0.75)",
+    secondaryColor: "rgba(255, 153, 0, 1)",
+    title: "Gyldne Designs",
+    punchLine: "Skil dig ud i din hverdag",
+    bigImg: "https://via.placeholder.com/363x300",
+  };
+  const perlerOgSten = {
+    backgroundColor: "rgba(41, 59, 102, 0.75)",
+    secondaryColor: "rgba(41, 59, 102, 1)",
+    title: "Naturligt til dig",
+    punchLine: "Skil dig ud i din hverdag",
+    bigImg: "https://via.placeholder.com/363x300",
+  };
 
   const sellers = [456789, 852852, 123456, 321123, 321123, 123123];
 
@@ -106,9 +128,14 @@ export default function Landingpage() {
   return (
     <>
       <NavBar />
+      <SideNav />
       {/* <button onClick={() => test()}>set database</button> */}
 
-      <div className="goldenDesigns">
+      <ShowProfile sellerId={123123} collection={gyldneDesigns} />
+      <ShowProfile sellerId={456789} collection={forårsdesigns} />
+      <ShowProfile sellerId={123456} collection={perlerOgSten} />
+
+      {/* <div className="goldenDesigns">
         <div className="headOfGoldenDesigns">
           <h1>Gyldne designs</h1>
           <p>Skil dig ud i din hverdag</p>
@@ -191,7 +218,7 @@ export default function Landingpage() {
             <h3>udforsk havets skønheder</h3>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="joinTentii">
         <div className="joinTentii__text">
           <p>Er du klar til at starte din rejse?</p>

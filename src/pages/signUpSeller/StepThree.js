@@ -102,6 +102,7 @@ export default function StepThree() {
           brandName: brandName,
           isAdmin: false,
           data: data,
+          favList: [],
         })
         .then(() => {
           db3

@@ -16,6 +16,7 @@ import StepThree from "./pages/signUpSeller/StepThree";
 import TestSignUp from "./pages/signUpSeller/TestSignUp";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import FavList from "./pages/FavList";
 
 function App() {
   const [signUpSeller, setSignUpSeller] = useState({});
@@ -37,6 +38,7 @@ function App() {
         <TestSignUp path="/signUpSeller/test" />
         <Dashboard path="/dashboard" />
         <Login path="/login" />
+        <FavList path="/favList" />
       </Router>
     </SignUpSellerContext.Provider>
   );

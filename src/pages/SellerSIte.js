@@ -3,42 +3,53 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import SideNav from "../components/SideNav";
+import { db } from "../firebase-config";
 import "./SellerSite.scss";
 
 export default function SellerSIte({ id }) {
   const [seller, setSeller] = useState({});
 
   useEffect(() => {
-    axios
+    db.collection("sellers")
+      .doc(`${id}`)
+      .get()
+      .then((seller) => {
+        setSeller(seller.data());
+      });
+
+    /* axios
       .get("/sellers.json")
       .then((response) =>
         setSeller(
           response.data.find((seller) => seller.sellerId === parseInt(id))
         )
-      );
+      ); */
   }, [setSeller, id]);
 
   console.log(seller);
 
   function Product({ productId, title, price, img, str }) {
-
-
-    if(str.length > 1){
+    if (str.length > 1) {
       str = "Flere Størelser";
-    } else{
+    } else {
       str = "Str. " + str[0];
     }
 
     return (
-      <Link to={"/product/" + productId}>
+      <Link
+        style={{
+          color: "black",
+          textDecoration: "none",
+          margin: "0 auto",
+        }}
+        to={"/product/" + productId}
+      >
         <div>
           <img alt="placeholder" src={img} />
         </div>
         <p>{title}</p>
         <p>DKK {price}</p>
-        <p>
-          {str}
-        </p>
+        <p>{str}</p>
       </Link>
     );
   }
@@ -50,13 +61,20 @@ export default function SellerSIte({ id }) {
 
       <div className="sellerProfile">
         <div className="profileInfo__leftImg">
-          <img src="https://via.placeholder.com/130" alt="placeholder" />
+          <img
+            style={{
+              width: "150px",
+              height: "150px",
+            }}
+            src={seller.profileImg}
+            alt="placeholder"
+          />
         </div>
         <div className="sellerStats">
           <button>Følg</button>
           <div className="profileStats">
             <div className="profileStats__posts">
-              <p>{seller.products?.length}</p>
+              <p>{seller?.products?.length}</p>
               <p>Opslag</p>
             </div>
             <div className="profileStats__followers">
@@ -76,15 +94,20 @@ export default function SellerSIte({ id }) {
         </Link>
 
         <div className="sellerDescription">
-          <p>{seller?.description}</p>
+          <p>{seller?.profileDescription}</p>
         </div>
       </div>
 
       <div className="sellerProducts">
-        <h2>Mine produkter</h2>
+        <h2
+          style={{
+            color: "#000",
+          }}
+        >
+          Mine produkter
+        </h2>
         <div className="sellerProducts__itemList">
-          {seller.products?.map((product) => {
-            console.log(product);
+          {seller?.products?.map((product) => {
             return (
               <Product
                 str={product.sizes}
