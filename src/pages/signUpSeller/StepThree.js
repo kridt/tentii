@@ -80,6 +80,7 @@ export default function StepThree() {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
+    const repeat_password = e.target.repeat_password.value;
     const data = {
       email: email,
       birthday: birthday,
@@ -90,46 +91,49 @@ export default function StepThree() {
       firstName: firstName,
       lastName: lastName,
     };
-
-    auth.createUserWithEmailAndPassword(email, password).then((user) => {
-      return db3
-        .collection("users")
-        .doc(user.user.uid)
-        .set({
-          id: user.user.uid,
-          email: email,
-          isSeller: true,
-          sellerId: newSellerId,
-          brandName: brandName,
-          isAdmin: false,
-          data: data,
-          favList: [],
-        })
-        .then(() => {
-          db3
-            .collection("sellers")
-            .doc(`${newSellerId}`)
-            .set({
-              sellerId: newSellerId,
-              email: email,
-              followsers: 0,
-              displayName: brandName,
-              personalTags: [],
-              primaryColor: "red",
-              secondaryColor: "blue",
-              products: [],
-              profileImage: "https://via.placeholder.com/150",
-              profileDescription: "Your profile description",
-              rating: 0,
-              reviews: [],
-              uid: user.user.uid,
-            })
-            .then(() => {
-              db.collection("signUpSeller").delete();
-              navigate("/dashboard");
-            });
-        });
-    });
+    if (password === repeat_password) {
+      auth.createUserWithEmailAndPassword(email, password).then((user) => {
+        return db3
+          .collection("users")
+          .doc(user.user.uid)
+          .set({
+            id: user.user.uid,
+            email: email,
+            isSeller: true,
+            sellerId: newSellerId,
+            brandName: brandName,
+            isAdmin: false,
+            data: data,
+            favList: [],
+          })
+          .then(() => {
+            db3
+              .collection("sellers")
+              .doc(`${newSellerId}`)
+              .set({
+                sellerId: newSellerId,
+                email: email,
+                followsers: 0,
+                displayName: brandName,
+                personalTags: [],
+                primaryColor: "red",
+                secondaryColor: "blue",
+                products: [],
+                profileImage: "https://via.placeholder.com/150",
+                profileDescription: "Your profile description",
+                rating: 0,
+                reviews: [],
+                uid: user.user.uid,
+              })
+              .then(() => {
+                db.collection("signUpSeller").delete();
+                navigate("/dashboard");
+              });
+          });
+      });
+    } else {
+      alert("Passwords do not match");
+    }
   }
 
   function findCity(e) {
@@ -292,10 +296,6 @@ export default function StepThree() {
               </div>
 
               <div>
-                {/* <FormControlLabel
-                  control={<IOSSwitch sx={{ m: 1 }} />}
-                  onChange={(e) => setSameAddress(e.target.checked)}
-                /> */}
                 <label>Adresse</label>
 
                 <input
@@ -394,6 +394,10 @@ export default function StepThree() {
               <div>
                 <label>Adgangskode</label>
                 <input type={"password"} name="password" />
+              </div>
+              <div>
+                <label>Gentag adgangskode</label>
+                <input type={"password"} name="repeat_password" />
               </div>
 
               <input
