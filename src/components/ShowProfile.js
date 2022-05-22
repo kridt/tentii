@@ -17,7 +17,6 @@ export default function ShowProfile({ sellerId, collection }) {
         setSeller(item.data());
       });
   }, [sellerId, setSeller]);
-  console.log(seller);
 
   return (
     <div
@@ -36,7 +35,7 @@ export default function ShowProfile({ sellerId, collection }) {
       </div>
       <div
         style={{
-          marginLeft: "2em",
+          paddingLeft: "2em",
           maxWidth: "360px",
         }}
       >
@@ -53,7 +52,6 @@ export default function ShowProfile({ sellerId, collection }) {
       <div
         style={{
           backgroundColor: collection.secondaryColor,
-          paddingLeft: "2em",
         }}
       >
         <div
@@ -61,13 +59,14 @@ export default function ShowProfile({ sellerId, collection }) {
             display: "flex",
             overflowX: "scroll",
             paddingTop: "1em",
+            paddingLeft: "2em",
           }}
         >
           {seller.products?.map((product) => {
             return (
               <div
                 style={{
-                  marginRight: "1em",
+                  paddingRight: "1em",
                 }}
                 key={product.productId}
               >

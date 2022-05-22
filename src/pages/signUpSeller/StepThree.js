@@ -5,6 +5,7 @@ import "./StepThree.scss";
 import { signUpSelerDb } from "../db/SignUpSellerDb";
 import { auth, db as db3 } from "../../firebase-config";
 import get6digitnum from "../../functions/get6digitnum";
+import axios from "axios";
 
 export default function StepThree() {
   const [personalInfoDb, setPersonalInfoDb] = useState({});
@@ -135,7 +136,32 @@ export default function StepThree() {
     const postCode = e.target.value;
 
     if (postCode.length === 4) {
-      fetch("/postnumre.json")
+      axios.get(`/postnumre.json`).then((res) => {
+        const result = res.data.find((item) => item.nr === postCode);
+        console.log(result);
+        if (result === undefined) {
+          alert("Postnummer ikke fundet");
+        } else {
+          setCity(result.navn);
+          setZipcode(postCode);
+          db.collection("signUpSeller")
+            .doc({ id: 1 })
+            .update({
+              personalInfo: {
+                firstName: firstName,
+                lastName: lastName,
+                birthday: birthday,
+                address: address,
+                phoneNumber: phoneNumber,
+                email: email,
+                city: result.navn,
+                zipcode: postCode,
+              },
+            });
+        }
+      });
+
+      /* fetch("/postnumre.json")
         .then((res) => res.json())
         .then((data) => {
           if (data[postCode] !== undefined) {
@@ -158,7 +184,7 @@ export default function StepThree() {
           } else {
             alert("Postnummer findes ikke");
           }
-        });
+        }); */
     }
   }
 

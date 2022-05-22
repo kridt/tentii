@@ -1,4 +1,5 @@
 import { Link } from "@reach/router";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import ProductCard from "../components/ProductCard";
@@ -10,57 +11,7 @@ import "./Landingpage.scss";
 export default function Landingpage() {
   const [currentUser, setCurrentUser] = useState({});
   const [allProducts, setAllProducts] = useState([]);
-  const testProducts = [
-    {
-      img: "https://via.placeholder.com/150x200",
-      id: 1,
-      productName: "Forgyldt ring1",
-      artistName: "Aluna",
-      price: 2000,
-    },
-    {
-      img: "https://via.placeholder.com/150x200",
-      id: 2,
-      productName: "Forgyldt ring2",
-      artistName: "Aluna",
-      price: 200,
-    },
-    {
-      img: "https://via.placeholder.com/150x200",
-      id: 3,
-      productName: "Forgyldt ring3",
-      artistName: "Aluna",
-      price: 200,
-    },
-    {
-      img: "https://via.placeholder.com/150x200",
-      id: 4,
-      productName: "Forgyldt ring4",
-      artistName: "Aluna",
-      price: 200,
-    },
-    {
-      img: "https://via.placeholder.com/150x200",
-      id: 5,
-      productName: "Forgyldt ring5",
-      artistName: "Aluna",
-      price: 200,
-    },
-    {
-      img: "https://via.placeholder.com/150x200",
-      id: 6,
-      productName: "Forgyldt ring6",
-      artistName: "Aluna",
-      price: 200,
-    },
-    {
-      img: "https://via.placeholder.com/150x200",
-      id: 7,
-      productName: "Forgyldt ring7",
-      artistName: "Aluna",
-      price: 200,
-    },
-  ];
+
   const forårsdesigns = {
     backgroundColor: "rgba(112, 145, 118, 0.75)",
     secondaryColor: "rgba(112, 145, 118, 1)",
@@ -97,6 +48,12 @@ export default function Landingpage() {
     );
     console.log(yes.map((product) => product.data()));
   }
+
+  useEffect(() => {
+    axios
+      .get("https://api.dataforsyningen.dk/postnumre")
+      .then((res) => console.log(res.data));
+  }, []);
 
   function test(e) {
     sellers.map((id) => {

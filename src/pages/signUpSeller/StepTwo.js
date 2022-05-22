@@ -196,7 +196,7 @@ export default function StepTwo() {
                   type="text"
                   defaultValue={defaultFirstName}
                   placeholder="Dit Fornavn?"
-                  onBlur={(e) => {
+                  onChange={(e) => {
                     setDefaultFirstName(e.target.value);
                     db.collection("signUpSeller")
                       .doc({ id: 1 })
@@ -216,7 +216,7 @@ export default function StepTwo() {
                   type="text"
                   defaultValue={defaultLastName}
                   placeholder="Dit efternavn?"
-                  onBlur={(e) => {
+                  onChange={(e) => {
                     setDefaultLastName(e.target.value);
 
                     db.collection("signUpSeller")

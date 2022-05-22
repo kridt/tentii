@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { SignUpSellerContext } from "../contexts/SignUpSellerContext";
 import { auth, db } from "../firebase-config";
 
 export default function MakeFav({ id }) {
@@ -17,16 +18,9 @@ export default function MakeFav({ id }) {
 
   function makeFav(e) {
     e.preventDefault();
-
+    console.log(currentUser);
     if (fav === false) {
       setFav(true);
-
-      db.collection("users")
-        .doc(currentUser.uid)
-        .update({
-          favList: [id],
-        });
-
       console.log(`Product ${id} is now a favorite`);
     } else {
       setFav(false);
