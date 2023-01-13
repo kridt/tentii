@@ -134,7 +134,7 @@ export default function ShowProfile({ sellerId, collection }) {
               textAlign: "center",
               paddingBottom: "1em",
             }}
-            to={"/sellerSite/" + seller.sellerId}
+            to={"/sellerSite/" + seller?.sellerId}
           >
             @{seller.displayName}
           </Link>
