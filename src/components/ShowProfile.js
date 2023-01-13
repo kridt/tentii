@@ -136,7 +136,7 @@ export default function ShowProfile({ sellerId, collection }) {
             }}
             to={"/sellerSite/" + seller?.sellerId}
           >
-            @{seller.displayName}
+            @{seller?.displayName}
           </Link>
         </div>
       </div>
