@@ -62,7 +62,7 @@ export default function ShowProfile({ sellerId, collection }) {
             paddingLeft: "2em",
           }}
         >
-          {seller.products?.map((product) => {
+          {seller?.products?.map((product) => {
             return (
               <div
                 style={{
